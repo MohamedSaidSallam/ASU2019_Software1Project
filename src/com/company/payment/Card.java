@@ -74,6 +74,7 @@ public class Card extends Payment {
 
     // endregion mutators
 
+    @Override
     protected void logPayment() {
         //todo implement
         throw new UnsupportedOperationException();

@@ -8,6 +8,7 @@ public class Cash extends Payment {
     }
     // endregion Constructor
 
+    @Override
     protected void logPayment() {
         //todo implement
         throw new UnsupportedOperationException();
