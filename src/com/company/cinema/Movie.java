@@ -10,7 +10,6 @@ public class Movie {
         private String plot;
         private float score;
         private Genre[] genres;
-        
         //But wait!! There's more
 
         // region Constructor
