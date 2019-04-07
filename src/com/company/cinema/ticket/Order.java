@@ -1,4 +1,4 @@
-package com.company.ticket;
+package com.company.cinema.ticket;
 
 import java.util.ArrayList;
 

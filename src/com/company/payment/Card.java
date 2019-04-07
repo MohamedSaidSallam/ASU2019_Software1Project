@@ -1,5 +1,7 @@
 package com.company.payment;
 
+import com.company.prototyping.HardwareProto;
+
 import java.util.Date;
 
 public class Card extends Payment {
@@ -74,17 +76,20 @@ public class Card extends Payment {
 
     // endregion mutators
 
+    @Override
     protected void logPayment() {
         //todo implement
         throw new UnsupportedOperationException();
     }
 
+    @Override
     protected void printReceipt() {
         //todo implement
-        hardwareRep.printReceipt("");
+        HardwareProto.printReceipt("");
         throw new UnsupportedOperationException();
     }
 
+    @Override
     protected void performTransaction() {
         //todo implement
         throw new UnsupportedOperationException();
