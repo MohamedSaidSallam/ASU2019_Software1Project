@@ -15,7 +15,7 @@ public class Movie {
 
 
     private int id;
-    private int movieNum = 0; //is that the best practice ?
+    private static int movieNum = 0; //is that the best practice ?
     private boolean available;
     private float price;
     private int[] availableSessionsIndices;
@@ -32,8 +32,7 @@ public class Movie {
     // region Constructor
 
     public Movie(boolean available, float price, int[] availableSessionsIndices, ViewingOption[] viewingOptions, Info info) {
-        movieNum++;
-        this.id = movieNum;
+        this.id = ++movieNum;
         this.available = available;
         this.price = price;
         this.availableSessionsIndices = availableSessionsIndices;
