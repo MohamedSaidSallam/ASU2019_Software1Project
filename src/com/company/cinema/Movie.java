@@ -101,8 +101,6 @@ public class Movie {
     private ViewingOption[] viewingOptions;
     private Info info;
 
-    private VBox vbx;
-
     //endregion Variables
 
     // region Constructor
@@ -113,37 +111,6 @@ public class Movie {
         this.availableSessionsIndices = availableSessionsIndices;
         this.viewingOptions = viewingOptions;
         this.info = new Info( name,  duration,  trailer,  plot ,score,  genres);
-
-        initVBox();
-    }
-
-    private void initVBox() {
-        Label lbl_movieTitle = new Label(info.getName());
-        lbl_movieTitle.getStyleClass().add("MovieTitle");
-
-        ImageView imageView = new ImageView(new Image(String.format("file:src/com/company/media/images/%d.jpg", id)));
-        imageView.setFitHeight(445); //todo magicNumber
-        imageView.setFitWidth(300);  //todo magicNumber
-
-        Label lbl_caption = new Label(getGenresString());
-        lbl_caption.getStyleClass().add("MovieCaption");
-
-        HBox hbx_caption = new HBox();
-        hbx_caption.setAlignment(Pos.CENTER);
-        hbx_caption.getChildren().add(lbl_caption);
-
-        Button btn_buy = new Button("Buy ticket");
-        btn_buy.getStyleClass().add("btn");
-        btn_buy.setPrefWidth(imageView.getFitWidth());
-
-        vbx = new VBox();
-        vbx.setPadding(new Insets(10, 50, 50, 50));//todo magic numbers
-        vbx.setSpacing(10);//todo magic numbers
-        vbx.getStyleClass().add("MovieCard");
-
-        vbx.prefHeightProperty().unbind();
-
-        vbx.getChildren().addAll(lbl_movieTitle, imageView, hbx_caption, btn_buy);
     }
 
     // endregion Constructor
@@ -152,10 +119,6 @@ public class Movie {
 
     public int getId() {
         return id;
-    }
-
-    public VBox getVbx() {
-        return vbx;
     }
 
     public boolean isAvailable() {
@@ -195,7 +158,7 @@ public class Movie {
 
     //endregion mutators
 
-    private String getGenresString(){
+    public String getGenresString(){
         StringBuilder strBuilder = new StringBuilder();
         for (Genre genre: info.getGenres()) {
             strBuilder.append(genre.toString());

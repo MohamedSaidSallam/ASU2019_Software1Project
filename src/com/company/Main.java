@@ -83,7 +83,7 @@ public class Main extends Application {
                         90, "trailer", "plot",
                         9, new Genre[]{Musical, Thriller});
 
-            hbx_movies.getChildren().add(movie.getVbx());
+            hbx_movies.getChildren().add(createMovieVBox(movie));
         }
         // endregion Content
 
@@ -118,5 +118,36 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private VBox createMovieVBox(Movie movie){
+        Label lbl_movieTitle = new Label(movie.getInfo().getName());
+        lbl_movieTitle.getStyleClass().add("MovieTitle");
+
+        ImageView imageView = new ImageView(new Image(String.format("file:src/com/company/media/images/%d.jpg", movie.getId())));
+        imageView.setFitHeight(445); //todo magicNumber
+        imageView.setFitWidth(300);  //todo magicNumber
+
+        Label lbl_caption = new Label(movie.getGenresString());
+        lbl_caption.getStyleClass().add("MovieCaption");
+
+        HBox hbx_caption = new HBox();
+        hbx_caption.setAlignment(Pos.CENTER);
+        hbx_caption.getChildren().add(lbl_caption);
+
+        Button btn_buy = new Button("Buy ticket");
+        btn_buy.getStyleClass().add("btn");
+        btn_buy.setPrefWidth(imageView.getFitWidth());
+
+        VBox vbx = new VBox();
+        vbx.setPadding(new Insets(10, 50, 50, 50));//todo magic numbers
+        vbx.setSpacing(10);//todo magic numbers
+        vbx.getStyleClass().add("MovieCard");
+
+        vbx.prefHeightProperty().unbind();
+
+        vbx.getChildren().addAll(lbl_movieTitle, imageView, hbx_caption, btn_buy);
+
+        return vbx;
     }
 }
