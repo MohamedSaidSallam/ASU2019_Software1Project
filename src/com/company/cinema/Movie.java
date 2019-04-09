@@ -1,14 +1,16 @@
 package com.company.cinema;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+//import javafx.scene.paint.Color;
+//import javafx.scene.text.Font;
+//import javafx.scene.text.FontWeight;
 
 public class Movie {
 
@@ -117,12 +119,18 @@ public class Movie {
 
     private void initVBox() {
         Label lbl_movieTitle = new Label(info.getName());
-        lbl_movieTitle.setFont(Font.font("Amble CN", FontWeight.BOLD, 24));//todo magicNumber
-        lbl_movieTitle.setTextFill(Color.web("#ff9933"));//todo magicNumber
-        
+        lbl_movieTitle.getStyleClass().add("MovieTitle");
+
         ImageView imageView = new ImageView(new Image(String.format("file:src/com/company/media/images/%d.jpg", id)));
         imageView.setFitHeight(445); //todo magicNumber
         imageView.setFitWidth(300);  //todo magicNumber
+
+        Label lbl_caption = new Label(getGenresString());
+        lbl_caption.getStyleClass().add("MovieCaption");
+
+        HBox hbx_caption = new HBox();
+        hbx_caption.setAlignment(Pos.CENTER);
+        hbx_caption.getChildren().add(lbl_caption);
 
         Button btn_buy = new Button("Buy ticket");
         btn_buy.getStyleClass().add("btn");
@@ -131,11 +139,11 @@ public class Movie {
         vbx = new VBox();
         vbx.setPadding(new Insets(10, 50, 50, 50));//todo magic numbers
         vbx.setSpacing(10);//todo magic numbers
-        vbx.getStyleClass().add("vbx");
+        vbx.getStyleClass().add("MovieCard");
 
         vbx.prefHeightProperty().unbind();
 
-        vbx.getChildren().addAll(lbl_movieTitle, imageView, btn_buy);
+        vbx.getChildren().addAll(lbl_movieTitle, imageView, hbx_caption, btn_buy);
     }
 
     // endregion Constructor
@@ -186,4 +194,14 @@ public class Movie {
     }
 
     //endregion mutators
+
+    private String getGenresString(){
+        StringBuilder strBuilder = new StringBuilder();
+        for (Genre genre: info.getGenres()) {
+            strBuilder.append(genre.toString());
+            strBuilder.append(", ");
+        }
+        strBuilder.setLength(strBuilder.length() - 2);
+        return strBuilder.toString();
+    }
 }
