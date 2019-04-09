@@ -1,8 +1,6 @@
 package com.company.cinema;
 
-import com.company.Main;
 import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -11,110 +9,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Screen;
 
 public class Movie {
-
-
-
-    private int id;
-    private static int movieNum = 0; //is that the best practice ?
-    private boolean available;
-    private int[] availableSessionsIndices;
-
-    private ViewingOption[] viewingOptions;
-    private Info info;
-
-    private VBox vb;
-    private Button bt;
-    private Image poster;
-
-    //endregion Variables
-
-    // region Constructor
-
-    public Movie(boolean available, int[] availableSessionsIndices, ViewingOption[] viewingOptions, String name, int duration, String trailer, String plot, float score, Genre[] genres) {
-        this.id = ++movieNum; //todo zabat el id!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        this.available = available;
-        this.availableSessionsIndices = availableSessionsIndices;
-        this.viewingOptions = viewingOptions;
-        this.info = new Info( name,  duration,  trailer,  plot ,score,  genres);
-        initVBox();
-    }
-
-    private void initVBox() {
-        vb = new VBox();
-        vb.setPadding(new Insets(10, 50, 50, 50));
-        vb.setSpacing(10);
-
-        poster = new Image(String.format("file:src/com/company/media/images/%d.jpg", id));
-        ImageView imageView = new ImageView(poster);
-
-        imageView.setFitHeight(445); //todo magicNumber
-        imageView.setFitWidth(300);  //todo magicNumber
-
-        Label lb = new Label(info.getName());
-        lb.setFont(Font.font("Amble CN", FontWeight.BOLD, 24));
-        lb.setTextFill(Color.web("#ff9933"));
-        bt = new Button("Buy ticket");
-        bt.getStyleClass().add("my-butt");
-        bt.setPrefWidth(imageView.getFitWidth());
-
-        vb.getChildren().add(lb);
-        vb.getChildren().add(imageView);
-        vb.getChildren().add(bt);
-        vb.getStyleClass().add("vb");
-        vb.prefHeightProperty().unbind();
-    }
-
-    // endregion Constructor
-
-    //region accessors
-
-    public int getId() {
-        return id;
-    }
-
-    public VBox getVb() {
-        return vb;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public Info getInfo() {
-        return info;
-    }
-
-    public ViewingOption[] getViewingOptions() {
-        return viewingOptions;
-    }
-
-    public int[] getAvailableSessionsIndices() {
-        return availableSessionsIndices;
-    }
-    //endregion accessors
-
-    //region mutators
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
-    public void setViewingOptions(ViewingOption[] viewingOptions) {
-        this.viewingOptions = viewingOptions;
-    }
-
-    public void setAvailableSessionsIndices(int[] availableSessionsIndices) {
-        this.availableSessionsIndices = availableSessionsIndices;
-    }
-
-    //endregion mutators
 
     public class Info {
         private String name;
@@ -195,4 +91,99 @@ public class Movie {
         }
         // endregion mutators
     }
+
+    private int id;
+    private boolean available;
+    private int[] availableSessionsIndices;
+
+    private ViewingOption[] viewingOptions;
+    private Info info;
+
+    private VBox vbx;
+
+    //endregion Variables
+
+    // region Constructor
+
+    public Movie(int id, boolean available, int[] availableSessionsIndices, ViewingOption[] viewingOptions, String name, int duration, String trailer, String plot, float score, Genre[] genres) {
+        this.id = id;
+        this.available = available;
+        this.availableSessionsIndices = availableSessionsIndices;
+        this.viewingOptions = viewingOptions;
+        this.info = new Info( name,  duration,  trailer,  plot ,score,  genres);
+
+        initVBox();
+    }
+
+    private void initVBox() {
+        Label lbl_movieTitle = new Label(info.getName());
+        lbl_movieTitle.setFont(Font.font("Amble CN", FontWeight.BOLD, 24));//todo magicNumber
+        lbl_movieTitle.setTextFill(Color.web("#ff9933"));//todo magicNumber
+        
+        ImageView imageView = new ImageView(new Image(String.format("file:src/com/company/media/images/%d.jpg", id)));
+        imageView.setFitHeight(445); //todo magicNumber
+        imageView.setFitWidth(300);  //todo magicNumber
+
+        Button btn_buy = new Button("Buy ticket");
+        btn_buy.getStyleClass().add("btn");
+        btn_buy.setPrefWidth(imageView.getFitWidth());
+
+        vbx = new VBox();
+        vbx.setPadding(new Insets(10, 50, 50, 50));//todo magic numbers
+        vbx.setSpacing(10);//todo magic numbers
+        vbx.getStyleClass().add("vbx");
+
+        vbx.prefHeightProperty().unbind();
+
+        vbx.getChildren().addAll(lbl_movieTitle, imageView, btn_buy);
+    }
+
+    // endregion Constructor
+
+    //region accessors
+
+    public int getId() {
+        return id;
+    }
+
+    public VBox getVbx() {
+        return vbx;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public Info getInfo() {
+        return info;
+    }
+
+    public ViewingOption[] getViewingOptions() {
+        return viewingOptions;
+    }
+
+    public int[] getAvailableSessionsIndices() {
+        return availableSessionsIndices;
+    }
+    //endregion accessors
+
+    //region mutators
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public void setViewingOptions(ViewingOption[] viewingOptions) {
+        this.viewingOptions = viewingOptions;
+    }
+
+    public void setAvailableSessionsIndices(int[] availableSessionsIndices) {
+        this.availableSessionsIndices = availableSessionsIndices;
+    }
+
+    //endregion mutators
 }

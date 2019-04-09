@@ -16,7 +16,7 @@
     -fx-padding: 7 13 7 13;
 }
 
-.vb
+.vbx
 {
     -fx-background-color:
         linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),
@@ -30,7 +30,7 @@
     -fx-indent: 10;
 
 }
-.my-butt
+.btn
  {
      -fx-background-color:
          linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),
@@ -50,12 +50,12 @@
 
      -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);
  }
-.my-butt:hover {
+.btn:hover {
     -fx-scale-y: 1.01;
     -fx-scale-x: 1.01;
 }
 
-.my-butt:pressed {
+.btn:pressed {
     -fx-scale-y: 0.98;
     -fx-scale-x: 0.98;
 }
