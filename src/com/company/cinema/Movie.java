@@ -1,86 +1,21 @@
 package com.company.cinema;
 
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+
 public class Movie {
 
-    //region Variables
-    public class Info {
-        private String name;
-        private int duration;
-        private String trailer; //todo should be a url or relative path to the local video file
-        private String plot;
-        private float score;
-        private Genre[] genres;
-        //But wait!! There's more
 
-        // region Constructor
-
-        public Info(String name, int duration, String trailer, String plot, float score, Genre[] genres) {
-            this.name = name;
-            this.duration = duration;
-            this.trailer = trailer;
-            this.plot = plot;
-            this.score = score;
-            this.genres = genres;
-        }
-
-        // endregion Constructor
-
-        // region accessors
-
-        public float getScore() {
-            return score;
-        }
-
-        public int getDuration() {
-            return duration;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getPlot() {
-            return plot;
-        }
-
-        public String getTrailer() {
-            return trailer;
-        }
-
-        public Genre[] getGenres() {
-            return genres;
-        }
-        // endregion accessors
-
-        // region mutators
-
-        public void setDuration(int duration) {
-            this.duration = duration;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public void setPlot(String plot) {
-            this.plot = plot;
-        }
-
-        public void setScore(float score) {
-            this.score = score;
-        }
-
-        public void setTrailer(String trailer) {
-            this.trailer = trailer;
-        }
-
-        public void setGenres(Genre[] genres) {
-            this.genres = genres;
-        }
-        // endregion mutators
-    }
 
     private int id;
+    private int movieNum = 0; //is that the best practice ?
     private boolean available;
     private float price;
     private int[] availableSessionsIndices;
@@ -88,17 +23,42 @@ public class Movie {
     private ViewingOption[] viewingOptions;
     private Info info;
 
+    private VBox vb;
+    private Button bt;
+    private Image poster;
+
     //endregion Variables
 
     // region Constructor
 
-    public Movie(int id, boolean available, float price, int[] availableSessionsIndices, ViewingOption[] viewingOptions, Info info) {
-        this.id = id;
+    public Movie(boolean available, float price, int[] availableSessionsIndices, ViewingOption[] viewingOptions, Info info) {
+        movieNum++;
+        this.id = movieNum;
         this.available = available;
         this.price = price;
         this.availableSessionsIndices = availableSessionsIndices;
         this.viewingOptions = viewingOptions;
         this.info = info;
+
+        vb = new VBox();
+        vb.setPadding(new Insets(10, 50, 50, 50));
+        vb.setSpacing(10);
+
+        poster = new Image(String.format("file:src/com/company/media/images/%d.jpg", id));
+        ImageView imageView = new ImageView(poster);
+        imageView.setFitHeight(455); //magicNumber
+        imageView.setFitWidth(300);  //magicNumber
+
+        Label lb = new Label(info.getName());
+        lb.setFont(Font.font("Amble CN", FontWeight.BOLD, 24));
+        lb.setTextFill(Color.web("#ff9933"));
+        bt = new Button("Buy ticket");
+        bt.getStyleClass().add("my-butt");
+        bt.setPrefWidth(imageView.getFitWidth());
+
+        vb.getChildren().add(lb);
+        vb.getChildren().add(imageView);
+        vb.getChildren().add(bt);
     }
 
     // endregion Constructor
@@ -107,6 +67,10 @@ public class Movie {
 
     public int getId() {
         return id;
+    }
+
+    public VBox getVb() {
+        return vb;
     }
 
     public boolean isAvailable() {
@@ -152,5 +116,6 @@ public class Movie {
         this.availableSessionsIndices = availableSessionsIndices;
     }
     //endregion mutators
+    //region Variables
 
 }
