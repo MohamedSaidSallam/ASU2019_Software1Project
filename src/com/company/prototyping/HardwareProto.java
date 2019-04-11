@@ -8,16 +8,16 @@ public class HardwareProto {
     }
     // endregion Static
 
-    private static void ShowMsg(String msg) {
+    private static void showMsg(String msg) {
         //todo implement
         throw new UnsupportedOperationException();
     }
 
     public static void printReceipt(String msg) {
-        ShowMsg(msg);
+        showMsg(msg);
     }
 
     public static void printTicket(String msg) {
-        ShowMsg(msg);
+        showMsg(msg);
     }
 }
