@@ -1,11 +1,11 @@
 package com.company.localization;
 
-public class LocalizationItems {
+public class localizationItem {
     private String key;
     private String value;
 
     // region Constructor
-    public LocalizationItems(String key, String value) {
+    public localizationItem(String key, String value) {
         this.key = key;
         this.value = value;
     }
