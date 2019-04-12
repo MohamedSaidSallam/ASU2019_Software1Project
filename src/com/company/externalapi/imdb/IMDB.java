@@ -9,6 +9,8 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.Scanner;
 
+import static com.company.json.JsonParser.imdbResponseFromString;
+
 public class IMDB {
 
     // region Constants
@@ -64,20 +66,12 @@ public class IMDB {
     }
 
     public static IMDBResponse getMovieDetails(String movieID) {
-        String jsonString = getMovieDetailsString(movieID);
-
-        //Call to string to IMDBResponse
-//        IMDBResponse imdbResponse = ;
-
-        //todo implement
-        throw new UnsupportedOperationException();
-
-//        return imdbResponse;
+        return imdbResponseFromString(getMovieDetailsString(movieID));
     }
 
     public static void main(String[] args) {
         //for Testing purposes
         init();
-        System.out.println(getMovieDetails("tt3896198"));
+        System.out.println(getMovieDetails("tt3896198").getTitle());
     }
 }

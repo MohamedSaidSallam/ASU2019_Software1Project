@@ -1,5 +1,6 @@
 package com.company.json;
 
+import com.company.externalapi.imdb.response.IMDBResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -42,6 +43,10 @@ public class JsonParser {
         }
 
         return gson.fromJson(fileData, MovieInfoJson.class);
+    }
+
+    public static IMDBResponse imdbResponseFromString(String data){
+        return gson.fromJson(data, IMDBResponse.class);
     }
 
     public static void main(String[] args) {
