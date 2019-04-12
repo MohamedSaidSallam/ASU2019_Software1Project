@@ -1,4 +1,4 @@
-package com.company.JsonReader;
+package com.company.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
