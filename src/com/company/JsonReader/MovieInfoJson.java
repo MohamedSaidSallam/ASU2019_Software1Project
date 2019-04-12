@@ -6,12 +6,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class MovieInfoJson {
+    // region Variables
     @SerializedName("Title")
     @Expose
     private String title;
-    @SerializedName("Year")
-    @Expose
-    private String year;
     @SerializedName("Rated")
     @Expose
     private String rated;
@@ -39,9 +37,6 @@ public class MovieInfoJson {
     @SerializedName("Country")
     @Expose
     private String country;
-    @SerializedName("Awards")
-    @Expose
-    private String awards;
     @SerializedName("Poster")
     @Expose
     private String poster;
@@ -63,15 +58,12 @@ public class MovieInfoJson {
     @SerializedName("Production")
     @Expose
     private String production;
+    // endregion Variables
 
     // region accessors
 
     public String getTitle() {
         return title;
-    }
-
-    public String getYear() {
-        return year;
     }
 
     public String getRated() {
@@ -110,10 +102,6 @@ public class MovieInfoJson {
         return country;
     }
 
-    public String getAwards() {
-        return awards;
-    }
-
     public String getPoster() {
         return poster;
     }
@@ -150,10 +138,6 @@ public class MovieInfoJson {
         this.title = title;
     }
 
-    public void setYear(String year) {
-        this.year = year;
-    }
-
     public void setRated(String rated) {
         this.rated = rated;
     }
@@ -188,10 +172,6 @@ public class MovieInfoJson {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public void setAwards(String awards) {
-        this.awards = awards;
     }
 
     public void setPoster(String poster) {
