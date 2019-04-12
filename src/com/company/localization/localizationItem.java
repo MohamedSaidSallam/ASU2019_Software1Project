@@ -1,8 +1,10 @@
 package com.company.localization;
 
 public class localizationItem {
+    // region Variables
     private String key;
     private String value;
+    // endregion Variables
 
     // region Constructor
     public localizationItem(String key, String value) {
