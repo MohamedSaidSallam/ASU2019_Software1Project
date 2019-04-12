@@ -2,7 +2,7 @@ package com.company.localization;
 
 import java.util.HashMap;
 
-public class localization {
+public class Localization {
 
     // region Constants
     private static final String KEY_NOT_FOUND = "KEY_NOT_FOUND";
@@ -13,7 +13,7 @@ public class localization {
     // endregion Variables
 
     // region constructor
-    private localization(){
+    private Localization(){
 
     }
     // endregion constructor
