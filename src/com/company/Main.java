@@ -4,6 +4,7 @@ import com.company.cinema.Genre;
 import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
 import com.company.cinema.ViewingOption;
+import com.company.media.videos.MediaControl;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -193,23 +194,29 @@ public class Main extends Application {
 
         //region Media Player
 
-        String path = "file:///C:/Users/Sameh/Desktop/Software%20Test/ASU2019_Software1Project/src/com/company/sample.mp4";
+
+        String path = "file:///:/Users/Sameh/Desktop/Software%20Test/ASU2019_Software1Project/src/com/company/sample.mp4";
 
         //Stack Pane to set Padding
 
         StackPane stk_mediaPlayer = new StackPane();
+        try {
+            Media media = new Media(path);
 
-        Media media = new Media(path);
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
 
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-
-        embeddedmediaplayer.MediaControl mediaControl = new embeddedmediaplayer.MediaControl(mediaPlayer); //Class for control overlay
+            MediaControl mediaControl = new MediaControl(mediaPlayer); //Class for control overlay
 
 
-        mediaPlayer.setAutoPlay(true);
+            mediaPlayer.setAutoPlay(true);
 
-        stk_mediaPlayer.getChildren().add(mediaControl);
-        stk_mediaPlayer.setPadding(new Insets(25, 0, 0, 50)); //todo Magic Number
+            stk_mediaPlayer.getChildren().add(mediaControl);
+            stk_mediaPlayer.setPadding(new Insets(25, 0, 0, 50)); //todo Magic Number
+        } catch (Exception e) {
+            stk_mediaPlayer.setMinHeight(350);
+            stk_mediaPlayer.setMinWidth(500);
+        }
+
         //endregion Media Player
 
         //region Vbox Scores & Purchase
