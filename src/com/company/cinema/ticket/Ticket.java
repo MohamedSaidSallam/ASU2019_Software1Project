@@ -1,8 +1,8 @@
-package com.company.ticket;
+package com.company.cinema.ticket;
 
 import com.company.cinema.Movie;
 import com.company.cinema.Seat;
-import com.company.hardwarereplacement.HardwareRep;
+import com.company.prototyping.HardwareProto;
 
 import java.util.Date;
 
@@ -96,7 +96,7 @@ public class Ticket {
     }
 
     public void printTicket() {
-        HardwareRep.getInstance().printTicket("");
+        HardwareProto.printTicket("");
         //todo implement
         throw new UnsupportedOperationException();
     }
