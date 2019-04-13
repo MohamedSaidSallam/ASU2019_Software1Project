@@ -10,11 +10,12 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../_Resources/Java Lib/gson-2.8.5.jar!/" />
+          <root url="jar://D:/_Resources/Java Lib/gson-2.8.5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

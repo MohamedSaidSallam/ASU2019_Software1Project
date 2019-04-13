@@ -4,5 +4,7 @@ public enum ViewingOption {
     Normal,
     IMAX,
     Dolby,
-    VIP
+    VIP;
+
+
 }
