@@ -33,6 +33,18 @@
     -fx-font-weight: bold;
     -fx-text-fill: #EAB25D;
 }
+.MovieTitleBig{
+    -fx-font-family: "Amble CN";
+    -fx-font-size: 35px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #EAB25D;
+}
+.LabelOptions{
+    -fx-font-family: "Helvetica";
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+    -fx-text-fill: Black;
+}
 
 .MovieCaption{
     -fx-font-family: "Amble CN";
