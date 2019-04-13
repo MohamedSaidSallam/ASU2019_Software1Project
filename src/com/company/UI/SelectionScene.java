@@ -4,6 +4,7 @@ import com.company.cinema.Hall;
 import com.company.cinema.Seat;
 import com.company.cinema.ViewingOption;
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class SelectionScene extends Application {
@@ -99,18 +101,22 @@ public class SelectionScene extends Application {
         // endregion Top
 
         // region left
-        Label lbl_movieTitle = new Label("Interstellar");
-
+        Label lbl_movieTitle = new Label("Interstellar this is a very long title made for just testing purposes nothing else");
+        lbl_movieTitle.getStyleClass().add("MovieTitleBig");
         Image img_movie = new Image("file:src/resources/Interstellar_film_poster.jpg");
         ImageView imageView = new ImageView(img_movie);
-        imageView.fitHeightProperty().bind(window.heightProperty().multiply(0.35));
+        imageView.fitHeightProperty().bind(window.heightProperty().multiply(0.65));
         imageView.fitWidthProperty().bind(imageView.fitHeightProperty().multiply(img_movie.getWidth() / img_movie.getHeight()));
+        lbl_movieTitle.prefWidthProperty().bind(imageView.fitWidthProperty());
+        lbl_movieTitle.setWrapText(true);
 
         VBox vbx_left = new VBox();
 
         vbx_left.getStyleClass().add("temp1");
 
-        vbx_left.getChildren().addAll(lbl_movieTitle, imageView);
+        vbx_left.setPadding(new Insets(20, 20, 20, 20));
+
+        vbx_left.getChildren().addAll(imageView,lbl_movieTitle);
         // endregion left
 
         // region Center
@@ -123,6 +129,7 @@ public class SelectionScene extends Application {
                 Rectangle rectangle = new Rectangle(50, 50);
                 rectangle.setStroke(Color.BLACK);
                 rectangle.setStrokeWidth(3.0);
+                Text location = new Text(seats[(10*j+i)].getRow()+seats[(10*j+i)].getColumn());
                 if (!seats[(10 * j + i)].isAvailable()) {
                     rectangle.setFill(Color.RED);
                 } else{
@@ -147,10 +154,12 @@ public class SelectionScene extends Application {
                 }
 
                 GridPane.setConstraints(rectangle, i, j);
+                GridPane.setConstraints(location,i,j);
+                GridPane.setHalignment(location, HPos.CENTER);
 //                Label lbl_seatTemp = new Label("temp");
 //                GridPane.setConstraints(lbl_seatTemp, i, j);
 //                grd_seats.getChildren().add(lbl_seatTemp);
-                grd_seats.getChildren().add(rectangle);
+                grd_seats.getChildren().addAll(rectangle,location);
             }
         }
         grd_seats.setPadding(new Insets(20, 20, 20, 20));
@@ -166,7 +175,8 @@ public class SelectionScene extends Application {
         // region Right
 
         Label lbl_stringSeats = new Label("Number of seats: ");
-
+        lbl_stringSeats.getStyleClass().add("LabelOptions");
+        lbl_noSeat.getStyleClass().add("LabelOptions");
         //region noSeats
         HBox hbx_noSeats = new HBox();//todo check method
         hbx_noSeats.getChildren().addAll(lbl_stringSeats, lbl_noSeat);
@@ -175,6 +185,7 @@ public class SelectionScene extends Application {
         //endregion noSeats
 
         Label lbl_viewingOptions = new Label("Choose movie type");
+        lbl_viewingOptions.getStyleClass().add("LabelOptions");
 
         ComboBox<ViewingOption> cbo_viewingOptions = new ComboBox<>();
         cbo_viewingOptions.getItems().addAll(ViewingOption.Normal, ViewingOption.VIP, ViewingOption.IMAX, ViewingOption.Dolby);
@@ -190,6 +201,7 @@ public class SelectionScene extends Application {
         //endregion viewingOptions
 
         Label lbl_noGlasses = new Label("Number of needed glasses");
+        lbl_noGlasses.getStyleClass().add("LabelOptions");
         lbl_noGlasses.setVisible(false);
 
         ComboBox<Integer> cbo_noGlasses = new ComboBox<>();
