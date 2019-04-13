@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 public class SelectionScene extends Application {
     private Stage window;
+    private static int  numberS = 0;
     public static void main(String[] args) {
         launch(args);
     }
@@ -29,6 +30,8 @@ public class SelectionScene extends Application {
     public void start(Stage primaryStage) {
 
         window = primaryStage;
+
+        Label lbl_noSeat = new Label("0");//todo change this line's location
 
         // region TESTING
         Seat seats[] = new Seat[100];
@@ -54,7 +57,8 @@ public class SelectionScene extends Application {
         seats[80].setAvailable(false);
         seats[90].setAvailable(false);
 
-        Seat choice[] = seats.clone();
+        Seat choice[];
+        choice = seats.clone();
         // endregion TESTING
 
         BorderPane brd_main = new BorderPane();
@@ -115,6 +119,7 @@ public class SelectionScene extends Application {
 
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < 10; i++) {
+                int counter = 10*j + i;
                 Rectangle rectangle = new Rectangle(50, 50);
                 rectangle.setStroke(Color.BLACK);
                 rectangle.setStrokeWidth(3.0);
@@ -127,9 +132,16 @@ public class SelectionScene extends Application {
                         rectangle.setHeight(50);
                         if(rectangle.getFill()==Color.BLACK){
                             rectangle.setFill(Color.WHITE);
+                            numberS--;
+                            lbl_noSeat.setText(String.valueOf(numberS));
                         }
                         else{
                             rectangle.setFill(Color.BLACK);
+                            choice[counter].setAvailable(false);
+                            System.out.println(choice[counter].getColumn() + ' ' + choice[counter].getRow());
+                            numberS++;
+                            lbl_noSeat.setText(String.valueOf(numberS));
+
                         }
                     });
                 }
@@ -152,7 +164,7 @@ public class SelectionScene extends Application {
         // endregion Center
 
         // region Right
-        Label lbl_noSeat = new Label("0");
+
         Label lbl_stringSeats = new Label("Number of seats: ");
 
         //region noSeats
@@ -203,6 +215,7 @@ public class SelectionScene extends Application {
         hbx_noGlasses.getChildren().addAll(lbl_noGlasses, cbo_noGlasses);
         hbx_noGlasses.setSpacing(10);//todo magic numbers
         hbx_noGlasses.setAlignment(Pos.CENTER);
+
         //endregion noGlasses
 
         VBox vbx_right = new VBox();
@@ -232,10 +245,7 @@ public class SelectionScene extends Application {
         hbx_btm.getStyleClass().add("temp2");
 
         btn_btm.setOnAction(e ->{
-            for(int sea = 0; sea < 100; sea++){
-                if(!choice[sea].isAvailable())
-                System.out.println(choice[sea].getColumn() + ' ' + choice[sea].getRow());
-            }
+
             System.out.println("**********");
         });//todo remove this later
         // endregion Footer
