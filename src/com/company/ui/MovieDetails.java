@@ -39,15 +39,13 @@ public class MovieDetails extends Application {
         Stage window;
 
         window = primaryStage;
-        VBox vbx_main = new VBox();
 
-        movieDetails = new Scene(vbx_main);
-        movieDetails.getStylesheets().add("file:src/resources/styles.css");
+
 
 
         // region Top
         // region Content
-        Image img_logo = new Image("file:src/com/company/media/images/placeholder/logo.png");
+        Image img_logo = new Image("file:src/resources/img/placeholder/logo.png");
         ImageView imgV_logo = new ImageView(img_logo);
 
         imgV_logo.fitHeightProperty().bind(window.heightProperty().multiply(0.06));
@@ -79,14 +77,11 @@ public class MovieDetails extends Application {
         // endregion top
 
         //region Overview
-
         //region Poster
-        Image img_movie = new Image("file:src/com/company/media/images/1.jpg");
+        Image img_movie = new Image("file:src/resources/img/1.jpg");
         ImageView imgV_movie = new ImageView(img_movie);
         imgV_movie.fitHeightProperty().bind(window.heightProperty().multiply(0.52));
         imgV_movie.fitWidthProperty().bind(imgV_movie.fitHeightProperty().multiply(img_movie.getWidth() / img_movie.getHeight()));
-
-
         //endregion Poster
 
         //region VBOX Movie Description
@@ -95,16 +90,13 @@ public class MovieDetails extends Application {
         Label lbl_movieTitle = new Label(movie.getInfo().getName());
         lbl_movieTitle.getStyleClass().add("MovieDetailsTitle");
 
-
-        Image img_star = new Image("file:src/com/company/media/images/ratings/imdb.png");
-        ImageView imgV_star = new ImageView(img_star);
-        imgV_star.fitHeightProperty().bind(window.heightProperty().multiply(0.045));
-        imgV_star.fitWidthProperty().bind(imgV_star.fitHeightProperty().multiply(img_star.getWidth() / img_star.getHeight()));
-
-
         Region rgn_star = new Region();
         HBox.setHgrow(rgn_star, Priority.ALWAYS);
 
+        Image img_star = new Image("file:src/resources/img/ratings/imdb.png");
+        ImageView imgV_star = new ImageView(img_star);
+        imgV_star.fitHeightProperty().bind(window.heightProperty().multiply(0.045));
+        imgV_star.fitWidthProperty().bind(imgV_star.fitHeightProperty().multiply(img_star.getWidth() / img_star.getHeight()));
 
         Label lbl_IMDBscore = new Label(String.valueOf(movie.getInfo().getIMDBscore()));
         lbl_IMDBscore.getStyleClass().add("MovieDetailsIMDB");
@@ -115,48 +107,37 @@ public class MovieDetails extends Application {
 
         HBox hbx_title = new HBox();
         hbx_title.getChildren().addAll(lbl_movieTitle, rgn_star, imgV_star, lbl_IMDBscore, lbl_ten);
-        hbx_title.setSpacing(1);
         hbx_title.setAlignment(Pos.CENTER);
         // endregion  HBox Title & Rating
 
         //region Plot
-
-        Label lbl_specs = new Label(movie.getInfo().getRating() + " | " + movie.getInfo().getDuration() + " | " + movie.getGenresString());
+        Label lbl_specs = new Label(movie.getInfo().getRating() + " | " + movie.getInfo().getDuration() + " min | " + movie.getGenresString());
         lbl_specs.getStyleClass().add("MovieDetailsSpecs");
 
         Label lbl_plot = new Label(movie.getInfo().getPlot());
         lbl_plot.getStyleClass().add("MovieDetailsPlot");
-        lbl_plot.setWrapText(true);  // Makes text in multiple lines
-
+        lbl_plot.setWrapText(true);
         //endregion Plot
-
 
         //region Cast
         TextFlow txtFlow_director = new TextFlow();
 
         Text txt_director = new Text("Director: ");
-        Text txt_directors = new Text(movie.getInfo().getDirector());
-
-        txtFlow_director.getChildren().addAll(txt_director, txt_directors);
-        txtFlow_director.setPadding(new Insets(25, 0, 0, 30)); //todo Magic Number
-
-
         txt_director.getStyleClass().add("MovieDetailsInfo");
+
+        Text txt_directors = new Text(movie.getInfo().getDirector());
         txt_directors.getStyleClass().add("MovieDetailsInfoItalic");
 
+        txtFlow_director.getChildren().addAll(txt_director, txt_directors);
 
         TextFlow txtFlow_writers = new TextFlow();
 
         Text txt_writer = new Text("Writers: ");
+        txt_writer.getStyleClass().add("MovieDetailsInfo");
         Text txt_writers = new Text(movie.getWritersString());
-
         txtFlow_writers.getChildren().addAll(txt_writer, txt_writers);
 
-        txt_writer.getStyleClass().add("MovieDetailsInfo");
         txt_writers.getStyleClass().add("MovieDetailsInfoItalic");
-
-        txtFlow_writers.setPadding(new Insets(0, 0, 0, 30)); //todo Magic Number
-
 
         TextFlow txtFlow_actors = new TextFlow();
 
@@ -164,7 +145,6 @@ public class MovieDetails extends Application {
         Text txt_actors = new Text(movie.getActorsString());
 
         txtFlow_actors.getChildren().addAll(txt_actor, txt_actors);
-        txtFlow_actors.setPadding(new Insets(0, 0, 0, 30)); //todo Magic Number
 
         txt_actor.getStyleClass().add("MovieDetailsInfo");
         txt_actors.getStyleClass().add("MovieDetailsInfoItalic");
@@ -175,10 +155,12 @@ public class MovieDetails extends Application {
         vbx_plot.getChildren().addAll(lbl_plot, txtFlow_director, txtFlow_writers, txtFlow_actors);
         vbx_plot.getStyleClass().add("MovieDetailsVPlot");
 
+        vbx_plot.setPadding(new Insets(10, 20, 10, 20));//todo Magic Number
 
         VBox vbx_description = new VBox();
         vbx_description.setMinHeight(300); //todo Magic Number
         vbx_description.setSpacing(2);  //todo Magic Number
+//        vbx_description.setPadding(new Insets(10, 10, 10, 10));//todo Magic Number
 
 
         vbx_description.getChildren().addAll(hbx_title, lbl_specs, vbx_plot);
@@ -203,8 +185,6 @@ public class MovieDetails extends Application {
 
 
         //region Media Player
-
-
         String path = "file:///C:/Users/Sameh/Desktop/Software%20Test/ASU2019_Software1Project/src/com/company/sample.mp4";
 
         //Stack Pane to set Padding
@@ -216,7 +196,6 @@ public class MovieDetails extends Application {
             MediaPlayer mediaPlayer = new MediaPlayer(media);
 
             MediaControl mediaControl = new MediaControl(mediaPlayer); //Class for control overlay
-
 
             mediaPlayer.setAutoPlay(true); //
 
@@ -253,7 +232,7 @@ public class MovieDetails extends Application {
             lbl_metascore.setStyle(style);
         }
 
-        Image img_metascore = new Image("file:src/com/company/media/images/ratings/metacritic.png");
+        Image img_metascore = new Image("file:src/resources/img/ratings/metacritic.png");
         ImageView imgV_metascore = new ImageView(img_metascore);
         imgV_metascore.fitHeightProperty().bind(window.heightProperty().multiply(0.07));
         imgV_metascore.fitWidthProperty().bind(imgV_metascore.fitHeightProperty().multiply(img_metascore.getWidth() / img_metascore.getHeight()));
@@ -272,16 +251,15 @@ public class MovieDetails extends Application {
         Label lbl_rottenTomatoes = new Label(movie.getInfo().getTomatometer() + "%");
         lbl_rottenTomatoes.getStyleClass().add("MovieDetailsTomatometer");
 
-        ImageView imgV_rottenTomatoes;
         Image img_rottenTomatoes;
 
         if (movie.getInfo().getTomatometer() > 59) {   //Changes image according to Tomatometer
-            img_rottenTomatoes = new Image("file:src/com/company/media/images/ratings/fresh_tomato.png");
+            img_rottenTomatoes = new Image("file:src/resources/img/ratings/fresh_tomato.png");
         } else {
-            img_rottenTomatoes = new Image("file:src/com/company/media/images/ratings/fresh_tomato.png");
+            img_rottenTomatoes = new Image("file:src/resources/img/ratings/fresh_tomato.png");
         }
 
-        imgV_rottenTomatoes = new ImageView(img_rottenTomatoes);
+        ImageView imgV_rottenTomatoes = new ImageView(img_rottenTomatoes);
         imgV_rottenTomatoes.fitHeightProperty().bind(window.heightProperty().multiply(0.055));
         imgV_rottenTomatoes.fitWidthProperty().bind(imgV_rottenTomatoes.fitHeightProperty().multiply(img_rottenTomatoes.getWidth() / img_rottenTomatoes.getHeight()));
 
@@ -289,7 +267,7 @@ public class MovieDetails extends Application {
         hbx_rottenTomatoes.getChildren().addAll(imgV_rottenTomatoes, lbl_rottenTomatoes);
         hbx_rottenTomatoes.setSpacing(20);
         hbx_rottenTomatoes.setPadding(new Insets(10, 0, 0, 100));
-        hbx_rottenTomatoes.setAlignment(Pos.TOP_LEFT);
+        hbx_rottenTomatoes.setAlignment(Pos.CENTER);
         //endregion Metascore
 
 
@@ -335,9 +313,8 @@ public class MovieDetails extends Application {
 
         VBox vbx_movieDetails = new VBox();
         movieDetails = new Scene(vbx_movieDetails);
-        movieDetails.getStylesheets().add("file:src/com/company/media/styles.css");
+        movieDetails.getStylesheets().add("file:src/resources/styles.css");
         vbx_movieDetails.getChildren().addAll(hbx_top, hbx_overview, hbx_bot, rgn_bot);
-
 
         window.setFullScreen(true);
         window.setTitle("CTD");
