@@ -29,13 +29,8 @@ public class Order {
     }
 
     public float calTotalCost() {
-        float totalCost = 0;
-
-        for (Ticket ticket : tickets) {
-            totalCost += ticket.getMoviePrice();
-        }
-
-        return totalCost;
+        //todo implement
+        throw new UnsupportedOperationException();
     }
 
     public void printTickets() {
