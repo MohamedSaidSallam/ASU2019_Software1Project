@@ -1,5 +1,6 @@
 package com.company.ui;
 
+import com.company.Main;
 import com.company.cinema.Genre;
 import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
@@ -22,26 +23,32 @@ import javafx.stage.Stage;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import static com.company.cinema.Genre.Musical;
-import static com.company.cinema.Genre.Thriller;
+import static com.company.cinema.Genre.*;
 import static com.company.cinema.ViewingOption.Normal;
 
-public class MovieDetails extends Application {
+public class MovieDetails extends VBox {
 
-    @Override
-    public void start(Stage primaryStage) {
-        Movie movie = new Movie(1, true, new int[]{0, 1},
-                new ViewingOption[]{Normal}, String.format("Movie %d", 0), MPAA.PG,
-                90, "trailer", "Tincidunt eget adipiscing cubilia vel purus potenti senectus tristique, praesent egestas torquent lectus placerat nullam curae arcu nostra, iaculis erat commodo consectetur class potenti posuere pretium pulvinar libero id curabitur class lacinia nostra luctus.",
-                9, 20, 99, new Genre[]{Musical, Thriller}, new String[]{"Actor1", "Actor2"}, new String[]{"Writer1", "Writer2"}, "Director");
+    private Stage window;
+    private Label lbl_movieTitle;
+    private Image img_movie;
+    private ImageView imgV_movie;
+    private Label lbl_IMDBscore;
+    private Label lbl_specs;
+    private Label lbl_plot;
+    private Text txt_directors;
+    private Text txt_writers;
+    private Text txt_actors;
+    private Label lbl_rottenTomatoes;
+    private Label lbl_metascore;
 
-        Scene movieDetails;
-        Stage window;
+    private Movie movie = new Movie(0, true, new int[]{0, 1},
+            new ViewingOption[]{Normal}, String.format("Movie %d", 0), MPAA.PG13,
+            91, "trailer", "TiHBshadsdasbdkasdaisaosijdaisjddiajda nullam curae arcu nostra, iaculis erat commodo consectetur class potenti posuere pretium pulvinar libero id curabitur class lacinia nostra luctus.",
+            7, 61, 91, new Genre[]{Action, Thriller}, new String[]{"7ma", "Acdtoaddar2"}, new String[]{"ads", "dasdas"}, "dadasdasdsa");
+    ;
 
-        window = primaryStage;
-
-
-
+    public MovieDetails(Stage window) {
+        this.window = window;
 
         // region Top
         // region Content
@@ -78,8 +85,8 @@ public class MovieDetails extends Application {
 
         //region Overview
         //region Poster
-        Image img_movie = new Image("file:src/resources/img/1.jpg");
-        ImageView imgV_movie = new ImageView(img_movie);
+        img_movie = new Image("file:src/resources/img/1.jpg");
+        imgV_movie = new ImageView(img_movie);
         imgV_movie.fitHeightProperty().bind(window.heightProperty().multiply(0.52));
         imgV_movie.fitWidthProperty().bind(imgV_movie.fitHeightProperty().multiply(img_movie.getWidth() / img_movie.getHeight()));
         //endregion Poster
@@ -87,7 +94,7 @@ public class MovieDetails extends Application {
         //region VBOX Movie Description
 
         //region  HBox Title & Rating
-        Label lbl_movieTitle = new Label(movie.getInfo().getName());
+        lbl_movieTitle = new Label();
         lbl_movieTitle.getStyleClass().add("MovieDetailsTitle");
 
         Region rgn_star = new Region();
@@ -98,7 +105,7 @@ public class MovieDetails extends Application {
         imgV_star.fitHeightProperty().bind(window.heightProperty().multiply(0.045));
         imgV_star.fitWidthProperty().bind(imgV_star.fitHeightProperty().multiply(img_star.getWidth() / img_star.getHeight()));
 
-        Label lbl_IMDBscore = new Label(String.valueOf(movie.getInfo().getIMDBscore()));
+        lbl_IMDBscore = new Label();
         lbl_IMDBscore.getStyleClass().add("MovieDetailsIMDB");
 
         Label lbl_ten = new Label("/10");
@@ -111,10 +118,10 @@ public class MovieDetails extends Application {
         // endregion  HBox Title & Rating
 
         //region Plot
-        Label lbl_specs = new Label(movie.getInfo().getRating() + " | " + movie.getInfo().getDuration() + " min | " + movie.getGenresString());
+        lbl_specs = new Label();
         lbl_specs.getStyleClass().add("MovieDetailsSpecs");
 
-        Label lbl_plot = new Label(movie.getInfo().getPlot());
+        lbl_plot = new Label();
         lbl_plot.getStyleClass().add("MovieDetailsPlot");
         lbl_plot.setWrapText(true);
         //endregion Plot
@@ -125,7 +132,7 @@ public class MovieDetails extends Application {
         Text txt_director = new Text("Director: ");
         txt_director.getStyleClass().add("MovieDetailsInfo");
 
-        Text txt_directors = new Text(movie.getInfo().getDirector());
+        txt_directors = new Text(movie.getInfo().getDirector());
         txt_directors.getStyleClass().add("MovieDetailsInfoItalic");
 
         txtFlow_director.getChildren().addAll(txt_director, txt_directors);
@@ -134,7 +141,9 @@ public class MovieDetails extends Application {
 
         Text txt_writer = new Text("Writers: ");
         txt_writer.getStyleClass().add("MovieDetailsInfo");
-        Text txt_writers = new Text(movie.getWritersString());
+
+        txt_writers = new Text(movie.getWritersString());
+
         txtFlow_writers.getChildren().addAll(txt_writer, txt_writers);
 
         txt_writers.getStyleClass().add("MovieDetailsInfoItalic");
@@ -142,7 +151,7 @@ public class MovieDetails extends Application {
         TextFlow txtFlow_actors = new TextFlow();
 
         Text txt_actor = new Text("Actors: ");
-        Text txt_actors = new Text(movie.getActorsString());
+        txt_actors = new Text(movie.getActorsString());
 
         txtFlow_actors.getChildren().addAll(txt_actor, txt_actors);
 
@@ -219,7 +228,7 @@ public class MovieDetails extends Application {
         HBox hbx_metascore = new HBox();
 
 
-        Label lbl_metascore = new Label(String.valueOf(movie.getInfo().getMetascore()));
+        lbl_metascore = new Label(String.valueOf(movie.getInfo().getMetascore()));
         lbl_metascore.getStyleClass().add("MovieDetailsMetascore");
         if (movie.getInfo().getMetascore() > 60) {                //Changes background color according to Metascore
             String style = "-fx-background-color: #6c3;";
@@ -248,7 +257,7 @@ public class MovieDetails extends Application {
         HBox hbx_rottenTomatoes = new HBox();
 
 
-        Label lbl_rottenTomatoes = new Label(movie.getInfo().getTomatometer() + "%");
+        lbl_rottenTomatoes = new Label();
         lbl_rottenTomatoes.getStyleClass().add("MovieDetailsTomatometer");
 
         Image img_rottenTomatoes;
@@ -256,7 +265,7 @@ public class MovieDetails extends Application {
         if (movie.getInfo().getTomatometer() > 59) {   //Changes image according to Tomatometer
             img_rottenTomatoes = new Image("file:src/resources/img/ratings/fresh_tomato.png");
         } else {
-            img_rottenTomatoes = new Image("file:src/resources/img/ratings/fresh_tomato.png");
+            img_rottenTomatoes = new Image("file:src/resources/img/ratings/rotten_tomato.png");
         }
 
         ImageView imgV_rottenTomatoes = new ImageView(img_rottenTomatoes);
@@ -311,18 +320,28 @@ public class MovieDetails extends Application {
         //endregion Bottom
 
 
-        VBox vbx_movieDetails = new VBox();
-        movieDetails = new Scene(vbx_movieDetails);
-        movieDetails.getStylesheets().add("file:src/resources/styles.css");
-        vbx_movieDetails.getChildren().addAll(hbx_top, hbx_overview, hbx_bot, rgn_bot);
+        this.getChildren().addAll(hbx_top, hbx_overview, hbx_bot, rgn_bot);
 
-        window.setFullScreen(true);
-        window.setTitle("CTD");
-        window.setScene(movieDetails);
-        window.show();
+//        window.setFullScreen(true);
+//        window.setTitle("CTD");
+//        window.setScene(movieDetails);
+//        window.show();
+
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public void updateScene() {
+        lbl_movieTitle.setText(Main.getCurrentMovie().getInfo().getName());
+        lbl_IMDBscore.setText(String.valueOf(Main.getCurrentMovie().getInfo().getIMDBscore()));
+        lbl_specs.setText(Main.getCurrentMovie().getInfo().getRating() + " | " + Main.getCurrentMovie().getInfo().getDuration() + " min | " + Main.getCurrentMovie().getGenresString());
+        lbl_plot.setText(Main.getCurrentMovie().getInfo().getPlot());
+        lbl_metascore.setText(String.valueOf(Main.getCurrentMovie().getInfo().getMetascore()));
+        lbl_rottenTomatoes.setText(Main.getCurrentMovie().getInfo().getTomatometer() + "%");
+        txt_directors.setText(Main.getCurrentMovie().getInfo().getDirector());
+        txt_writers.setText(Main.getCurrentMovie().getWritersString());
+        txt_actors.setText(Main.getCurrentMovie().getActorsString());
+        img_movie = new Image("file:src/resources/img/" + Main.getCurrentMovie().getId() + ".jpg");
+        imgV_movie = new ImageView(img_movie);
+
     }
+
 }

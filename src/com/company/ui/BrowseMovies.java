@@ -1,6 +1,8 @@
 package com.company.ui;
 
+import com.company.Main;
 import com.company.cinema.Genre;
+import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
 import com.company.cinema.ViewingOption;
 import javafx.application.Application;
@@ -23,13 +25,13 @@ import static com.company.cinema.Genre.Musical;
 import static com.company.cinema.Genre.Thriller;
 import static com.company.cinema.ViewingOption.Normal;
 
-public class BrowseMovies extends Application {
+public class BrowseMovies extends VBox {
 
     private Stage window;
 
-    @Override
-    public void start(Stage primaryStage) {
-        window = primaryStage;
+    public BrowseMovies(Stage window) {
+        this.window = window;
+
 
         // region Header
         // region Content
@@ -72,9 +74,9 @@ public class BrowseMovies extends Application {
             test++;
 
             movie = new Movie(test, true, new int[]{0, 1},
-                    new ViewingOption[]{Normal}, String.format("Movie %d", test),
-                    90, "trailer", "plot",
-                    9, new Genre[]{Musical, Thriller});
+                    new ViewingOption[]{Normal}, String.format("Movie %d", test), MPAA.PG,
+                    90, "trailer", "Tincidunt eget adipiscing cubilia vel purus potenti senectus tristique, praesent egestas torquent lectus placerat nullam curae arcu nostra, iaculis erat commodo consectetur class potenti posuere pretium pulvinar libero id curabitur class lacinia nostra luctus.",
+                    9, 20, 99, new Genre[]{Musical, Thriller}, new String[]{"Actor1", "Actor2"}, new String[]{"Writer1", "Writer2"}, "Director");
 
             hbx_movies.getChildren().add(createMovieVBox(movie));
         }
@@ -99,22 +101,11 @@ public class BrowseMovies extends Application {
 
         VBox vbx_main = new VBox();
 
-        vbx_main.getStyleClass().add("main");
+        this.getStyleClass().add("main");
 
-        vbx_main.getChildren().addAll(hbx_header, sp_movies);
-
-        Scene scene = new Scene(vbx_main);
-        scene.getStylesheets().add("file:src/resources/styles.css");
-
-        window.setFullScreen(true);
-        window.setTitle("CTD");
-        window.setScene(scene);
-        window.show();
+        this.getChildren().addAll(hbx_header, sp_movies);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     private VBox createMovieVBox(Movie movie) {
         Label lbl_movieTitle = new Label(movie.getInfo().getName());
@@ -133,6 +124,10 @@ public class BrowseMovies extends Application {
         hbx_caption.getChildren().add(lbl_caption);
 
         Button btn_buy = new Button("Buy ticket");
+        btn_buy.setOnAction(e -> {
+            Main.setCurrentMovie(movie);
+            Main.switchScene(1);
+        });
         btn_buy.getStyleClass().add("btn");
         btn_buy.prefWidthProperty().bind(imageView.fitWidthProperty());
         btn_buy.prefHeightProperty().bind(window.heightProperty().multiply(0.05));

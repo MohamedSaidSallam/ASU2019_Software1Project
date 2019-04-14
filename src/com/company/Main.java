@@ -1,8 +1,57 @@
 package com.company;
 
-public class Main {
+import com.company.cinema.Movie;
+import com.company.ui.BrowseMovies;
+import com.company.ui.MovieDetails;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    private static Stage window;
+    private static Pane[] panes = new Pane[4];
+
+    private static Movie currentMovie;
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        launch(args);
+    }
+
+    public static void switchScene(int index) {
+        ((MovieDetails) panes[1]).updateScene();
+        window.setScene(new Scene(panes[index]));
+
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        panes[0] = new BrowseMovies(primaryStage);
+        panes[1] = new MovieDetails(primaryStage);
+//        panes[2] = new MovieDetails(primaryStage);
+//        panes[3] = new MovieDetails(primaryStage);
+
+        window = primaryStage;
+        MovieDetails browseMovies = new MovieDetails(primaryStage);
+
+        Scene scene = new Scene(panes[0]);
+        scene.getStylesheets().add("file:src/resources/styles.css");
+
+        primaryStage.setScene(scene);
+
+        window.setFullScreen(true);
+        window.setTitle("CTD");
+        window.setScene(scene);
+        window.show();
+    }
+
+    public static Movie getCurrentMovie() {
+        return currentMovie;
+    }
+
+    public static void setCurrentMovie(Movie currentMovie) {
+        Main.currentMovie = currentMovie;
     }
 }

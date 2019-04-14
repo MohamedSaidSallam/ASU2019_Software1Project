@@ -205,7 +205,7 @@ public class Movie {
         this.availableSessionsIndices = availableSessionsIndices;
     }
 
-    //endregion mutators
+    //endregion mutators change
 
     public String getGenresString(){
         StringBuilder strBuilder = new StringBuilder();
