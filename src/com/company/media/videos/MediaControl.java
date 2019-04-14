@@ -49,9 +49,11 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MediaControl extends BorderPane {
@@ -71,8 +73,13 @@ public class MediaControl extends BorderPane {
         this.mp = mp;
         setStyle("-fx-background-color: #bfc2c7;");
         mediaView = new MediaView(mp);
-        mediaView.setFitWidth(500);
+
         mediaView.setFitHeight(350);
+        mediaView.setFitWidth(500);
+
+
+
+
         Pane mvPane = new Pane() {
         };
         mvPane.getChildren().add(mediaView);

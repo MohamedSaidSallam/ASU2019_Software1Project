@@ -28,25 +28,33 @@ import static com.company.cinema.ViewingOption.Normal;
 
 
 public class Main extends Application {
-    Stage window;
-    Scene movieDetails;
+
+
     @Override
     public void start(Stage primaryStage) {
         Movie movie = new Movie(1, true, new int[]{0, 1},
                 new ViewingOption[]{Normal}, String.format("Movie %d", 0), MPAA.PG,
                 90, "trailer", "Tincidunt eget adipiscing cubilia vel purus potenti senectus tristique, praesent egestas torquent lectus placerat nullam curae arcu nostra, iaculis erat commodo consectetur class potenti posuere pretium pulvinar libero id curabitur class lacinia nostra luctus.",
                 9, 20, 99, new Genre[]{Musical, Thriller}, new String[]{"Actor1", "Actor2"}, new String[]{"Writer1", "Writer2"}, "Director");
+
+        Scene movieDetails;
+        Stage window;
+
         window = primaryStage;
         VBox vbx_main = new VBox();
 
         movieDetails = new Scene(vbx_main);
         movieDetails.getStylesheets().add("file:src/com/company/media/styles.css");
 
+
         // region Top
         // region Content
-        ImageView img_logo = new ImageView(new Image("file:src/com/company/media/images/placeholder/logo.png"));
-        img_logo.setFitHeight(75); //todo magicNumber
-        img_logo.setFitWidth(75);  //todo magicNumber
+        Image img_logo = new Image("file:src/com/company/media/images/placeholder/logo.png");
+        ImageView imgV_logo = new ImageView(img_logo);
+
+        imgV_logo.fitHeightProperty().bind(window.heightProperty().multiply(0.06));
+        imgV_logo.fitWidthProperty().bind(imgV_logo.fitHeightProperty().multiply(img_logo.getWidth() / img_logo.getHeight()));
+
 
         Label lbl_title = new Label("Cinema Ticket Dispenser");
         lbl_title.setFont(Font.font("Amble CN", FontWeight.BOLD, 24));//todo magicNumber
@@ -68,16 +76,19 @@ public class Main extends Application {
         hbx_top.setSpacing(10);//todo magic numbers
         hbx_top.setAlignment(Pos.CENTER);
 
-        hbx_top.getChildren().addAll(img_logo, lbl_title, region, btn_temp1, btn_temp2);
+        hbx_top.getChildren().addAll(imgV_logo, lbl_title, region, btn_temp1, btn_temp2);
         // endregion HBox
         // endregion top
 
         //region Overview
 
         //region Poster
-        ImageView img_poster = new ImageView(new Image("file:src/com/company/media/images/1.jpg"));
-        img_poster.setFitHeight(550);  //todo Magic Number
-        img_poster.setFitWidth(375); //todo Magic Number
+        Image img_movie = new Image("file:src/com/company/media/images/1.jpg");
+        ImageView imgV_movie = new ImageView(img_movie);
+        imgV_movie.fitHeightProperty().bind(window.heightProperty().multiply(0.52));
+        imgV_movie.fitWidthProperty().bind(imgV_movie.fitHeightProperty().multiply(img_movie.getWidth() / img_movie.getHeight()));
+
+
         //endregion Poster
 
         //region VBOX Movie Description
@@ -86,15 +97,15 @@ public class Main extends Application {
         Label lbl_movieTitle = new Label(movie.getInfo().getName());
         lbl_movieTitle.getStyleClass().add("MovieDetailsTitle");
 
-        ImageView img_star = new ImageView(new Image("file:src/com/company/media/images/ratings/imdb.png"));
-        img_star.setFitHeight(55);  //todo Magic Number
-        img_star.setFitWidth(55); //todo Magic Number
 
-        //Stack pane to be able to set Padding
-        StackPane stk_star = new StackPane(img_star);
+        Image img_star = new Image("file:src/com/company/media/images/ratings/imdb.png");
+        ImageView imgV_star = new ImageView(img_star);
+        imgV_star.fitHeightProperty().bind(window.heightProperty().multiply(0.045));
+        imgV_star.fitWidthProperty().bind(imgV_star.fitHeightProperty().multiply(img_star.getWidth() / img_star.getHeight()));
 
-        //To make IMDB score go to the right Can Be Replaced with a region
-        stk_star.setPadding(new Insets(0, 0, 0, 1000)); // todo Magic Numbers
+
+        Region rgn_star = new Region();
+        HBox.setHgrow(rgn_star, Priority.ALWAYS);
 
 
         Label lbl_IMDBscore = new Label(String.valueOf(movie.getInfo().getIMDBscore()));
@@ -105,9 +116,9 @@ public class Main extends Application {
 
 
         HBox hbx_title = new HBox();
-        hbx_title.getChildren().addAll(lbl_movieTitle, stk_star, lbl_IMDBscore, lbl_ten);
-        hbx_title.setSpacing(1); //todo Magic Number
-
+        hbx_title.getChildren().addAll(lbl_movieTitle, rgn_star, imgV_star, lbl_IMDBscore, lbl_ten);
+        hbx_title.setSpacing(1);
+        hbx_title.setAlignment(Pos.CENTER);
         // endregion  HBox Title & Rating
 
         //region Plot
@@ -175,16 +186,17 @@ public class Main extends Application {
         vbx_description.getChildren().addAll(hbx_title, lbl_specs, vbx_plot);
 
         VBox.setVgrow(vbx_plot, Priority.ALWAYS);
-
+        HBox.setHgrow(vbx_description, Priority.ALWAYS);
         //endregion Movie Description
 
+        Region rgn_overview = new Region();
 
         HBox hbx_overview = new HBox();
         hbx_overview.setPadding(new Insets(30, 10, 10, 50)); //todo Magic Number
         hbx_overview.setSpacing(15); //todo Magic Number
-        hbx_overview.setAlignment(Pos.TOP_LEFT);
+        hbx_overview.setAlignment(Pos.CENTER_LEFT);
 
-        hbx_overview.getChildren().addAll(img_poster, vbx_description);
+        hbx_overview.getChildren().addAll(imgV_movie, vbx_description, rgn_overview);
         hbx_overview.getStyleClass().add("MovieDetailsOverview");
 
         //endregion Overview
@@ -195,11 +207,11 @@ public class Main extends Application {
         //region Media Player
 
 
-        String path = "file:///:/Users/Sameh/Desktop/Software%20Test/ASU2019_Software1Project/src/com/company/sample.mp4";
+        String path = "file:///C:/Users/Sameh/Desktop/Software%20Test/ASU2019_Software1Project/src/com/company/sample.mp4";
 
         //Stack Pane to set Padding
 
-        StackPane stk_mediaPlayer = new StackPane();
+        FlowPane flow_mediaPlayer = new FlowPane();
         try {
             Media media = new Media(path);
 
@@ -208,13 +220,14 @@ public class Main extends Application {
             MediaControl mediaControl = new MediaControl(mediaPlayer); //Class for control overlay
 
 
-            mediaPlayer.setAutoPlay(true);
+            mediaPlayer.setAutoPlay(true); //
 
-            stk_mediaPlayer.getChildren().add(mediaControl);
-            stk_mediaPlayer.setPadding(new Insets(25, 0, 0, 50)); //todo Magic Number
+            flow_mediaPlayer.getChildren().add(mediaControl);
+            flow_mediaPlayer.setPadding(new Insets(15, 0, 0, 50));
+            flow_mediaPlayer.setAlignment(Pos.CENTER);
         } catch (Exception e) {
-            stk_mediaPlayer.setMinHeight(350);
-            stk_mediaPlayer.setMinWidth(500);
+            flow_mediaPlayer.setMinHeight(350);
+            flow_mediaPlayer.setMinWidth(500);
         }
 
         //endregion Media Player
@@ -242,14 +255,14 @@ public class Main extends Application {
             lbl_metascore.setStyle(style);
         }
 
-        ImageView img_metacritic = new ImageView(new Image("file:src/com/company/media/images/ratings/metacritic.png"));
+        Image img_metascore = new Image("file:src/com/company/media/images/ratings/metacritic.png");
+        ImageView imgV_metascore = new ImageView(img_metascore);
+        imgV_metascore.fitHeightProperty().bind(window.heightProperty().multiply(0.07));
+        imgV_metascore.fitWidthProperty().bind(imgV_metascore.fitHeightProperty().multiply(img_metascore.getWidth() / img_metascore.getHeight()));
 
-        img_metacritic.setFitHeight(75); //todo Magic Number
-        img_metacritic.setFitWidth(300); //todo Magic Number
 
-        hbx_metascore.getChildren().addAll(lbl_metascore, img_metacritic);
-        hbx_metascore.setSpacing(20); //todo Magic Number
-        hbx_metascore.setPadding(new Insets(20, 0, 0, 100)); //todo Magic Number
+        hbx_metascore.getChildren().addAll(lbl_metascore, imgV_metascore);
+        hbx_metascore.setSpacing(20);
         hbx_metascore.setAlignment(Pos.TOP_LEFT);
         //endregion Metascore
 
@@ -261,28 +274,32 @@ public class Main extends Application {
         Label lbl_rottenTomatoes = new Label(movie.getInfo().getTomatometer() + "%");
         lbl_rottenTomatoes.getStyleClass().add("MovieDetailsTomatometer");
 
-        ImageView img_rottenTomatoes;
+        ImageView imgV_rottenTomatoes;
+        Image img_rottenTomatoes;
 
         if (movie.getInfo().getTomatometer() > 59) {   //Changes image according to Tomatometer
-            img_rottenTomatoes = new ImageView(new Image("file:src/com/company/media/images/ratings/fresh_tomato.png"));
+            img_rottenTomatoes = new Image("file:src/com/company/media/images/ratings/fresh_tomato.png");
         } else {
-            img_rottenTomatoes = new ImageView(new Image("file:src/com/company/media/images/ratings/rotten_tomato.png"));
+            img_rottenTomatoes = new Image("file:src/com/company/media/images/ratings/fresh_tomato.png");
         }
 
-        img_rottenTomatoes.setFitHeight(75); //todo Magic Number
-        img_rottenTomatoes.setFitWidth(75); //todo Magic Number
+        imgV_rottenTomatoes = new ImageView(img_rottenTomatoes);
+        imgV_rottenTomatoes.fitHeightProperty().bind(window.heightProperty().multiply(0.055));
+        imgV_rottenTomatoes.fitWidthProperty().bind(imgV_rottenTomatoes.fitHeightProperty().multiply(img_rottenTomatoes.getWidth() / img_rottenTomatoes.getHeight()));
 
 
-        hbx_rottenTomatoes.getChildren().addAll(img_rottenTomatoes, lbl_rottenTomatoes);
+        hbx_rottenTomatoes.getChildren().addAll(imgV_rottenTomatoes, lbl_rottenTomatoes);
         hbx_rottenTomatoes.setSpacing(20);
-        hbx_rottenTomatoes.setPadding(new Insets(20, 0, 0, 100));
+        hbx_rottenTomatoes.setPadding(new Insets(10, 0, 0, 100));
         hbx_rottenTomatoes.setAlignment(Pos.TOP_LEFT);
         //endregion Metascore
 
+
         hbx_scores.getChildren().addAll(hbx_metascore, hbx_rottenTomatoes);
+        hbx_scores.setAlignment(Pos.CENTER);
 
         // Bottom Padding to make purchase button go down
-        hbx_scores.setPadding(new Insets(0, 0, 30, 0)); //todo Magic Number
+        hbx_scores.setPadding(new Insets(40, 0, 30, 0)); //todo Magic Number
 
 
         //endregion Hbox scores
@@ -303,9 +320,16 @@ public class Main extends Application {
 
         //endregion Vbox Scores & Purchase
 
+        Region rg3 = new Region();
+        HBox.setHgrow(vbx_purchase, Priority.ALWAYS);
+
         HBox hbx_bot = new HBox();
-        hbx_bot.getChildren().addAll(stk_mediaPlayer, vbx_purchase);
+
+        hbx_bot.setAlignment(Pos.CENTER);
+        hbx_bot.getChildren().addAll(flow_mediaPlayer, vbx_purchase, rg3);
         hbx_bot.setSpacing(30);  //todo Magic Number
+
+        Region rgn_bot = new Region(); // To replace padding below media player
 
 
         //endregion Bottom
@@ -314,7 +338,7 @@ public class Main extends Application {
         VBox vbx_movieDetails = new VBox();
         movieDetails = new Scene(vbx_movieDetails);
         movieDetails.getStylesheets().add("file:src/com/company/media/styles.css");
-        vbx_movieDetails.getChildren().addAll(hbx_top, hbx_overview, hbx_bot);
+        vbx_movieDetails.getChildren().addAll(hbx_top, hbx_overview, hbx_bot, rgn_bot);
 
 
         window.setFullScreen(true);

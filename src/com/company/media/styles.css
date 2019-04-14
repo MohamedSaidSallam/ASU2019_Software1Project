@@ -2,6 +2,10 @@
     -fx-background-color: #E8E8E8;
 }
 
+.root {
+    -fx-font-size: 10px;
+}
+
 .NoFocus {
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
@@ -94,7 +98,7 @@
 }
 .MovieDetailsPlot{
    -fx-font-family: "Amble CN";
-   -fx-font-size: 30px;
+   -fx-font-size: 3.5em;
    -fx-font-weight: normal;
    -fx-text-fill: #000000;
    -fx-padding: 20px 0px 60px 30px;
@@ -141,7 +145,6 @@
    -fx-min-width:75px;
    -fx-min-height:75px;
    -fx-padding: 0px 0px 0px 0px;
-   -fx-margin: 0px 0px 0px 200px;
    -fx-text-fill: #FFFFFF;
 
 }
@@ -153,7 +156,6 @@
    -fx-min-width:75px;
    -fx-min-height:75px;
    -fx-padding: 0px 0px 0px 0px;
-   -fx-margin: 0px 0px 0px 200px;
    -fx-text-fill: #000000;
 }
 .purchaseBtn{
