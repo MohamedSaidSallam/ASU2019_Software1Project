@@ -91,10 +91,6 @@ public class Ticket {
         throw new UnsupportedOperationException();
     }
 
-    public float getMoviePrice() {
-        return this.movie.getPrice();
-    }
-
     public void printTicket() {
         HardwareProto.printTicket("");
         //todo implement
