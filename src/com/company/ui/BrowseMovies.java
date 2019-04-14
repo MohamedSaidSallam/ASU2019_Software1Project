@@ -1,4 +1,4 @@
-package com.company.UI;
+package com.company.ui;
 
 import com.company.cinema.Genre;
 import com.company.cinema.Movie;
