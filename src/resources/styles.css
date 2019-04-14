@@ -31,6 +31,14 @@
     -fx-effect: dropshadow(three-pass-box, rgba(136, 135, 135, 0.9), 1, 0.0, 3, 3);
 }
 
+.Title{
+    -fx-font-family: "Amble CN";
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+
 .MovieTitle{
     -fx-font-family: "Amble CN";
     -fx-font-size: 24px;
