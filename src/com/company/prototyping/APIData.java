@@ -1,3 +1,4 @@
+/*
 package com.company.prototyping;
 
 import com.google.gson.annotations.Expose;
@@ -57,3 +58,4 @@ public class APIData {
 
     // endregion mutators
 }
+*/
