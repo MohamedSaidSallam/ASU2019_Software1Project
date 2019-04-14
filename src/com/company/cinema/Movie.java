@@ -2,7 +2,6 @@ package com.company.cinema;
 
 public class Movie {
 
-    //region Variables
     public class Info {
         private String name;
         private int duration;
@@ -10,6 +9,8 @@ public class Movie {
         private String plot;
         private float score;
         private Genre[] genres;
+
+
         //But wait!! There's more
 
         // region Constructor
@@ -21,6 +22,7 @@ public class Movie {
             this.plot = plot;
             this.score = score;
             this.genres = genres;
+
         }
 
         // endregion Constructor
@@ -82,7 +84,6 @@ public class Movie {
 
     private int id;
     private boolean available;
-    private float price;
     private int[] availableSessionsIndices;
 
     private ViewingOption[] viewingOptions;
@@ -92,13 +93,12 @@ public class Movie {
 
     // region Constructor
 
-    public Movie(int id, boolean available, float price, int[] availableSessionsIndices, ViewingOption[] viewingOptions, Info info) {
+    public Movie(int id, boolean available, int[] availableSessionsIndices, ViewingOption[] viewingOptions, String name, int duration, String trailer, String plot, float score, Genre[] genres) {
         this.id = id;
         this.available = available;
-        this.price = price;
         this.availableSessionsIndices = availableSessionsIndices;
         this.viewingOptions = viewingOptions;
-        this.info = info;
+        this.info = new Info( name,  duration,  trailer,  plot ,score,  genres);
     }
 
     // endregion Constructor
@@ -121,10 +121,6 @@ public class Movie {
         return viewingOptions;
     }
 
-    public float getPrice() {
-        return price;
-    }
-
     public int[] getAvailableSessionsIndices() {
         return availableSessionsIndices;
     }
@@ -140,10 +136,6 @@ public class Movie {
         this.available = available;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
     public void setViewingOptions(ViewingOption[] viewingOptions) {
         this.viewingOptions = viewingOptions;
     }
@@ -151,6 +143,16 @@ public class Movie {
     public void setAvailableSessionsIndices(int[] availableSessionsIndices) {
         this.availableSessionsIndices = availableSessionsIndices;
     }
+
     //endregion mutators
 
+    public String getGenresString(){
+        StringBuilder strBuilder = new StringBuilder();
+        for (Genre genre: info.getGenres()) {
+            strBuilder.append(genre.toString());
+            strBuilder.append(", ");
+        }
+        strBuilder.setLength(strBuilder.length() - 2);
+        return strBuilder.toString();
+    }
 }
