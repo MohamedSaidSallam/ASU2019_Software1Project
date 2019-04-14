@@ -2,6 +2,10 @@
     -fx-background-color: #E8E8E8;
 }
 
+.root {
+    -fx-font-size: 10px;
+}
+
 .NoFocus {
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
@@ -34,12 +38,14 @@
     -fx-text-fill: black;
 }
 
+
 .MovieTitle{
     -fx-font-family: "Amble CN";
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: #EAB25D;
 }
+
 
 .MovieCaption{
     -fx-font-family: "Amble CN";
@@ -68,6 +74,115 @@
 }
 
 .btn:pressed {
+    -fx-scale-y: 0.98;
+    -fx-scale-x: 0.98;
+}
+
+
+/*Movie Details Styles*/
+
+.MovieDetailsOverview{
+    -fx-background-radius: 35 35 0 0;
+    -fx-background-insets: 7 15 0 15;
+    -fx-background-color: #696969;
+}
+.MovieDetailsVPlot{
+    -fx-background-color: #E8E8E8;
+}
+
+.MovieDetailsTitle{
+   -fx-font-family: "Amble CN";
+   -fx-font-size: 60px;
+   -fx-font-weight: bold;
+   -fx-text-fill: rgb(197, 207, 236);
+   -fx-padding: 0px 0px 0px 30px;
+}
+.MovieDetailsSpecs{
+   -fx-font-family: "Amble CN";
+   -fx-font-size: 25px;
+   -fx-font-weight: bold;
+   -fx-text-fill: #E8E8E8;
+   -fx-padding: 0px 0px 0px 30px;
+}
+.MovieDetailsPlot{
+   -fx-font-family: "Amble CN";
+   -fx-font-size: 3.5em;
+   -fx-font-weight: normal;
+   -fx-text-fill: #000000;
+   -fx-max-width:1300px;
+}
+.MovieDetailsInfo{
+   -fx-font-family: "Amble CN";
+   -fx-font-size: 25px;
+   -fx-font-weight: bold;
+   -fx-text-fill: #000000;
+   -fx-padding: 2px 0px 0px 50px;
+   -fx-max-width:1300px;
+}
+.MovieDetailsInfoItalic{
+   -fx-font-family: "Amble CN";
+   -fx-font-size: 25px;
+   -fx-font-weight: normal;
+   -fx-font-style: italic;
+   -fx-text-fill: #000000;
+   -fx-padding: 2px 0px 0px 30px;
+   -fx-max-width:1300px;
+}
+.MovieDetailsIMDB{
+   fx-font-family: "Amble CN";
+   -fx-font-size: 45px;
+   -fx-font-weight: bold;
+   -fx-padding: 10px 0px 0px 15px;
+   -fx-text-fill: #E8E8E8;
+
+}
+.MovieDetailsTen{
+   fx-font-family: "Amble CN";
+   -fx-font-size: 22px;
+   -fx-font-weight: bold;
+   -fx-padding: 33px 0px 0px 0px;
+   -fx-text-fill: #E8E8E8;
+
+}
+.MovieDetailsMetascore{
+   -fx-font-family: "Amble CN";
+   -fx-font-size: 35px;
+   -fx-font-weight: normal;
+   -fx-alignment: center;
+   -fx-min-width:75px;
+   -fx-min-height:75px;
+   -fx-padding: 0px 0px 0px 0px;
+   -fx-text-fill: #FFFFFF;
+
+}
+.MovieDetailsTomatometer{
+   -fx-font-family: "Amble CN";
+   -fx-font-size: 35px;
+   -fx-font-weight: normal;
+   -fx-alignment: center;
+   -fx-min-width:75px;
+   -fx-min-height:75px;
+   -fx-padding: 0px 0px 0px 0px;
+   -fx-text-fill: #000000;
+}
+.purchaseBtn{
+   -fx-background-color: rgb(184, 182, 182);
+   -fx-background-radius: 5, 5, 5, 5, 5;
+   -fx-font-family: "Helvetica";
+   -fx-font-size: 32px;
+   -fx-font-weight: bold;
+   -fx-text-fill: #30332E;
+   -fx-display: inline-block;
+   -fx-cursor: grab;
+
+   -fx-effect: dropshadow(three-pass-box, rgba(136, 135, 135, 0.9), 1, 0.0, 4, 4);
+}
+.purchaseBtn:hover {
+  -fx-scale-y: 1.01;
+  -fx-scale-x: 1.01;
+}
+
+.purchaseBtn:pressed {
     -fx-scale-y: 0.98;
     -fx-scale-x: 0.98;
 }
