@@ -5,10 +5,8 @@ import com.company.cinema.Genre;
 import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
 import com.company.cinema.ViewingOption;
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -76,7 +74,7 @@ public class BrowseMovies extends VBox {
             movie = new Movie(test, true, new int[]{0, 1},
                     new ViewingOption[]{Normal}, String.format("Movie %d", test), MPAA.PG,
                     90, "trailer", "Tincidunt eget adipiscing cubilia vel purus potenti senectus tristique, praesent egestas torquent lectus placerat nullam curae arcu nostra, iaculis erat commodo consectetur class potenti posuere pretium pulvinar libero id curabitur class lacinia nostra luctus.",
-                    9, 20, 99, new Genre[]{Musical, Thriller}, new String[]{"Actor1", "Actor2"}, new String[]{"Writer1", "Writer2"}, "Director");
+                    9, 20, 20, new Genre[]{Musical, Thriller}, new String[]{"Actor1", "Actor2"}, new String[]{"Writer1", "Writer2"}, "Director");
 
             hbx_movies.getChildren().add(createMovieVBox(movie));
         }

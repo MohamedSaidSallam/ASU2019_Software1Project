@@ -6,10 +6,8 @@ import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
 import com.company.cinema.ViewingOption;
 import resources.videos.MediaControl;
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -26,9 +24,9 @@ import javafx.scene.media.MediaPlayer;
 import static com.company.cinema.Genre.*;
 import static com.company.cinema.ViewingOption.Normal;
 
-public class MovieDetails extends VBox {
+public class MovieDetails extends VBox implements Updatable {
 
-    private Stage window;
+    Stage window;
     private Label lbl_movieTitle;
     private Image img_movie;
     private ImageView imgV_movie;
@@ -39,12 +37,15 @@ public class MovieDetails extends VBox {
     private Text txt_writers;
     private Text txt_actors;
     private Label lbl_rottenTomatoes;
+    private Image img_rottenTomatoes;
     private Label lbl_metascore;
+    private ImageView imgV_rottenTomatoes;
+
 
     private Movie movie = new Movie(0, true, new int[]{0, 1},
             new ViewingOption[]{Normal}, String.format("Movie %d", 0), MPAA.PG13,
             91, "trailer", "TiHBshadsdasbdkasdaisaosijdaisjddiajda nullam curae arcu nostra, iaculis erat commodo consectetur class potenti posuere pretium pulvinar libero id curabitur class lacinia nostra luctus.",
-            7, 61, 91, new Genre[]{Action, Thriller}, new String[]{"7ma", "Acdtoaddar2"}, new String[]{"ads", "dasdas"}, "dadasdasdsa");
+            7, 61, 90, new Genre[]{Action, Thriller}, new String[]{"7ma", "Acdtoaddar2"}, new String[]{"ads", "dasdas"}, "dadasdasdsa");
     ;
 
     public MovieDetails(Stage window) {
@@ -87,8 +88,11 @@ public class MovieDetails extends VBox {
         //region Poster
         img_movie = new Image("file:src/resources/img/1.jpg");
         imgV_movie = new ImageView(img_movie);
+
         imgV_movie.fitHeightProperty().bind(window.heightProperty().multiply(0.52));
         imgV_movie.fitWidthProperty().bind(imgV_movie.fitHeightProperty().multiply(img_movie.getWidth() / img_movie.getHeight()));
+
+
         //endregion Poster
 
         //region VBOX Movie Description
@@ -260,15 +264,11 @@ public class MovieDetails extends VBox {
         lbl_rottenTomatoes = new Label();
         lbl_rottenTomatoes.getStyleClass().add("MovieDetailsTomatometer");
 
-        Image img_rottenTomatoes;
+        img_rottenTomatoes = new Image("file:src/resources/img/ratings/fresh_tomato.png");
 
-        if (movie.getInfo().getTomatometer() > 59) {   //Changes image according to Tomatometer
-            img_rottenTomatoes = new Image("file:src/resources/img/ratings/fresh_tomato.png");
-        } else {
-            img_rottenTomatoes = new Image("file:src/resources/img/ratings/rotten_tomato.png");
-        }
 
-        ImageView imgV_rottenTomatoes = new ImageView(img_rottenTomatoes);
+        imgV_rottenTomatoes = new ImageView(img_rottenTomatoes);
+
         imgV_rottenTomatoes.fitHeightProperty().bind(window.heightProperty().multiply(0.055));
         imgV_rottenTomatoes.fitWidthProperty().bind(imgV_rottenTomatoes.fitHeightProperty().multiply(img_rottenTomatoes.getWidth() / img_rottenTomatoes.getHeight()));
 
@@ -339,8 +339,18 @@ public class MovieDetails extends VBox {
         txt_directors.setText(Main.getCurrentMovie().getInfo().getDirector());
         txt_writers.setText(Main.getCurrentMovie().getWritersString());
         txt_actors.setText(Main.getCurrentMovie().getActorsString());
+
+
         img_movie = new Image("file:src/resources/img/" + Main.getCurrentMovie().getId() + ".jpg");
-        imgV_movie = new ImageView(img_movie);
+        imgV_movie.setImage(img_movie);
+
+        if (Main.getCurrentMovie().getInfo().getTomatometer() > 59) {   //Changes image according to Tomatometer
+            img_rottenTomatoes = new Image("file:src/resources/img/ratings/fresh_tomato.png");
+        } else {
+            img_rottenTomatoes = new Image("file:src/resources/img/ratings/rotten_tomato.png");
+        }
+        imgV_rottenTomatoes.setImage(img_rottenTomatoes);
+
 
     }
 

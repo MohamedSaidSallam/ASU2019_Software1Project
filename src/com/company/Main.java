@@ -3,15 +3,16 @@ package com.company;
 import com.company.cinema.Movie;
 import com.company.ui.BrowseMovies;
 import com.company.ui.MovieDetails;
+import com.company.ui.Updatable;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
     private static Stage window;
+    private static Scene scene;
     private static Pane[] panes = new Pane[4];
 
     private static Movie currentMovie;
@@ -21,8 +22,9 @@ public class Main extends Application {
     }
 
     public static void switchScene(int index) {
-        ((MovieDetails) panes[1]).updateScene();
-        window.setScene(new Scene(panes[index]));
+        ((Updatable) panes[index]).updateScene();
+        scene.setRoot(panes[index]);
+
 
     }
 
@@ -34,9 +36,8 @@ public class Main extends Application {
 //        panes[3] = new MovieDetails(primaryStage);
 
         window = primaryStage;
-        MovieDetails browseMovies = new MovieDetails(primaryStage);
 
-        Scene scene = new Scene(panes[0]);
+        scene = new Scene(panes[0]);
         scene.getStylesheets().add("file:src/resources/styles.css");
 
         primaryStage.setScene(scene);
