@@ -77,15 +77,9 @@
     -fx-scale-x: 0.98;
 }
 
-.temp1{
+.gray{
     -fx-background-color: GRAY;
 }
-.temp2{
-    -fx-background-color: GRAY;
-}
-.temp3{
-    -fx-background-color: GRAY;
-}
-.temp4{
+.silver{
      -fx-background-color: SILVER;
  }
