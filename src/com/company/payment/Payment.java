@@ -1,13 +1,10 @@
 
 package com.company.payment;
 
-import com.company.hardwarereplacement.HardwareRep;
-
 public abstract class Payment {
 
     // region variables
     protected float amount;
-    protected static HardwareRep hardwareRep = HardwareRep.getInstance();
     // region variables
 
     // region Constructor
