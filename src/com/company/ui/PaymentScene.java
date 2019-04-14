@@ -1,4 +1,4 @@
-package com.company;
+package com.company.ui;
 
 
 import com.company.payment.CardType;
