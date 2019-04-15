@@ -1,5 +1,6 @@
 package com.company.ui;
 
+import com.company.Main;
 import com.company.cinema.Hall;
 import com.company.cinema.Seat;
 import com.company.cinema.ViewingOption;
@@ -20,7 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class SelectionScene extends BorderPane {
+public class SeatSelection extends BorderPane implements Updatable {
 
     // region Constants
     private static final Color SEAT_UNAVAILABLE_COLOR = Color.LIGHTCORAL;
@@ -34,10 +35,15 @@ public class SelectionScene extends BorderPane {
     private int numSeatsSelected = 0;
     private Label lbl_noGlassesValue;
     private HBox hbx_top;
+    private Image img_moviePoster;
+    private ImageView imgV_moviePoster;
+    private Label lbl_movieTitle;
+    ComboBox<ViewingOption> cbo_viewingOptions;
+
     // endregion Variables
 
 
-    public SelectionScene(Stage primaryStage) {
+    public SeatSelection(Stage primaryStage) {
         window = primaryStage;
 
 
@@ -78,12 +84,13 @@ public class SelectionScene extends BorderPane {
 
 
         // region MoviePanel
-        Image img_moviePoster = new Image("file:src/resources/Interstellar_film_poster.jpg");
-        ImageView imgV_moviePoster = new ImageView(img_moviePoster);
+        img_moviePoster = new Image("file:src/resources/Interstellar_film_poster.jpg");
+        imgV_moviePoster = new ImageView(img_moviePoster);
+
         imgV_moviePoster.fitHeightProperty().bind(window.heightProperty().multiply(0.63));
         imgV_moviePoster.fitWidthProperty().bind(imgV_moviePoster.fitHeightProperty().multiply(img_moviePoster.getWidth() / img_moviePoster.getHeight()));
 
-        Label lbl_movieTitle = new Label("Interstellar this is a very long title made for just testing purposes nothing else");
+        lbl_movieTitle = new Label();
         lbl_movieTitle.getStyleClass().add("MovieTitleBig");
 
         lbl_movieTitle.prefWidthProperty().bind(imgV_moviePoster.fitWidthProperty());
@@ -108,15 +115,9 @@ public class SelectionScene extends BorderPane {
         // region viewingOptions
         Label lbl_viewingOptions = createOptionLabel("Movie type:");
 
-        ComboBox<ViewingOption> cbo_viewingOptions = new ComboBox<>();
+        cbo_viewingOptions = new ComboBox<>();
 
-        cbo_viewingOptions.getItems().addAll(ViewingOption.values());
-        cbo_viewingOptions.getSelectionModel().selectFirst();
 
-        cbo_viewingOptions.prefWidthProperty().bind(window.widthProperty().multiply(0.13));
-        cbo_viewingOptions.prefHeightProperty().bind(window.heightProperty().multiply(0.04));
-
-        cbo_viewingOptions.getStyleClass().add("NoFocus");
         // endregion viewingOptions
 
         // region noGlasses
@@ -268,4 +269,22 @@ public class SelectionScene extends BorderPane {
 
         return button;
     }
+
+    public void updateScene() {
+        img_moviePoster = new Image("file:src/resources/img/" + Main.getCurrentMovie().getId() + ".jpg");
+        imgV_moviePoster.setImage(img_moviePoster);
+
+        lbl_movieTitle.setText(Main.getCurrentMovie().getInfo().getName());
+
+
+        cbo_viewingOptions.getItems().addAll(Main.getCurrentMovie().getViewingOptions());
+        cbo_viewingOptions.getSelectionModel().selectFirst();
+
+        cbo_viewingOptions.prefWidthProperty().bind(window.widthProperty().multiply(0.13));
+        cbo_viewingOptions.prefHeightProperty().bind(window.heightProperty().multiply(0.04));
+
+        cbo_viewingOptions.getStyleClass().add("NoFocus");
+    }
 }
+
+

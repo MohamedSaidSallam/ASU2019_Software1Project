@@ -1,9 +1,7 @@
 package com.company;
 
 import com.company.cinema.Movie;
-import com.company.ui.BrowseMovies;
-import com.company.ui.MovieDetails;
-import com.company.ui.Updatable;
+import com.company.ui.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -32,8 +30,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         panes[0] = new BrowseMovies(primaryStage);
         panes[1] = new MovieDetails(primaryStage);
-//        panes[2] = new MovieDetails(primaryStage);
-//        panes[3] = new MovieDetails(primaryStage);
+        panes[2] = new SeatSelection(primaryStage);
+        panes[3] = new TicketPayment(primaryStage);
 
         window = primaryStage;
 

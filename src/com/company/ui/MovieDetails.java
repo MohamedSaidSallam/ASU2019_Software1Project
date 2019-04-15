@@ -291,7 +291,9 @@ public class MovieDetails extends VBox implements Updatable {
 
 
         Button btn_purchase = new Button("Purchase Tickets");
-
+        btn_purchase.setOnAction(e -> {
+            Main.switchScene(2);
+        });
         btn_purchase.getStyleClass().add("purchaseBtn");
         btn_purchase.setFont(Font.font("Helvetica", 32));
         btn_purchase.setMinSize(500, 75); //todo Magic Number
@@ -322,10 +324,6 @@ public class MovieDetails extends VBox implements Updatable {
 
         this.getChildren().addAll(hbx_top, hbx_overview, hbx_bot, rgn_bot);
 
-//        window.setFullScreen(true);
-//        window.setTitle("CTD");
-//        window.setScene(movieDetails);
-//        window.show();
 
     }
 
@@ -353,5 +351,6 @@ public class MovieDetails extends VBox implements Updatable {
 
 
     }
+
 
 }
