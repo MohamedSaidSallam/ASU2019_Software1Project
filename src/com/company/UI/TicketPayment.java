@@ -1,12 +1,11 @@
 package com.company.ui;
 
 
+import com.company.Main;
 import com.company.payment.CardType;
 
 
 import com.company.payment.PaymentMethod;
-
-
 
 
 import javafx.event.EventHandler;
@@ -26,8 +25,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
-
-
 import javafx.scene.image.ImageView;
 
 import javafx.scene.layout.VBox;
@@ -37,6 +34,12 @@ import javafx.scene.text.Font;
 
 public class TicketPayment extends VBox implements Updatable {
     Stage window;
+    private Label lbl_movieTitle;
+    private Label lbl_NoTickets;
+    private Label lbl_viewingOptions;
+    private Label lbl_ticketPrice;
+    private Label lbl_Hall;
+    private Label lbl_totalPrice;
 
     public TicketPayment(Stage window) {
 
@@ -119,7 +122,7 @@ public class TicketPayment extends VBox implements Updatable {
 
         Label label7 = new Label();
 
-        Label label8 = new Label();
+        lbl_totalPrice = new Label();
 
         Label label9 = new Label();
 
@@ -129,15 +132,15 @@ public class TicketPayment extends VBox implements Updatable {
 
         Label label12 = new Label();
 
-        Label label13 = new Label();
+        lbl_movieTitle = new Label();
 
-        Label label14 = new Label();
+        lbl_NoTickets = new Label();
 
-        Label label15 = new Label();
+        lbl_viewingOptions = new Label();
 
-        Label label16 = new Label();
+        lbl_ticketPrice = new Label();
 
-        Label label17 = new Label();
+        lbl_Hall = new Label();
 
         Line line0 = new Line();
 
@@ -395,14 +398,14 @@ public class TicketPayment extends VBox implements Updatable {
         label7.setFont(new Font(34));
 
 
-        GridPane.setColumnIndex(label8, 1);
+        GridPane.setColumnIndex(lbl_totalPrice, 1);
 
-        label8.setPrefHeight(35.0);
+        lbl_totalPrice.setPrefHeight(35.0);
 
-        label8.setPrefWidth(131.0);
+        lbl_totalPrice.setPrefWidth(131.0);
 
-        label8.setText("150");
-        label8.setFont(new Font(34));
+        lbl_totalPrice.setText("150");
+        lbl_totalPrice.setFont(new Font(34));
 
 
         GridPane.setColumnIndex(label10, 1);
@@ -439,66 +442,63 @@ public class TicketPayment extends VBox implements Updatable {
         label12.setFont(new Font(25));
 
 
-        GridPane.setColumnIndex(label13, 1);
+        GridPane.setColumnIndex(lbl_movieTitle, 1);
 
-        GridPane.setRowIndex(label13, 1);
+        GridPane.setRowIndex(lbl_movieTitle, 1);
 
-        label13.setPrefHeight(21.0);
+        lbl_movieTitle.setPrefHeight(21.0);
 
-        label13.setPrefWidth(235.0);
-
-        label13.setText("Avengers End game");
+        lbl_movieTitle.setPrefWidth(235.0);
 
 
-        label13.setFont(new Font(25));
+        lbl_movieTitle.setFont(new Font(25));
 
 
-        GridPane.setColumnIndex(label14, 1);
+        GridPane.setColumnIndex(lbl_NoTickets, 1);
 
-        GridPane.setRowIndex(label14, 2);
+        GridPane.setRowIndex(lbl_NoTickets, 2);
 
-        label14.setLayoutX(217.0);
+        lbl_NoTickets.setLayoutX(217.0);
 
-        label14.setLayoutY(130.0);
+        lbl_NoTickets.setLayoutY(130.0);
 
-        label14.setPrefHeight(21.0);
+        lbl_NoTickets.setPrefHeight(21.0);
 
-        label14.setPrefWidth(235.0);
+        lbl_NoTickets.setPrefWidth(235.0);
 
-        label14.setText("5");
-        label14.setFont(new Font(25));
-
-
-        GridPane.setColumnIndex(label15, 1);
-
-        GridPane.setRowIndex(label15, 3);
-
-        label15.setLayoutX(217.0);
-
-        label15.setLayoutY(179.0);
-
-        label15.setPrefHeight(21.0);
-
-        label15.setPrefWidth(235.0);
-
-        label15.setText("IMAX");
-        label15.setFont(new Font(25));
+        lbl_NoTickets.setFont(new Font(25));
 
 
-        GridPane.setColumnIndex(label16, 1);
+        GridPane.setColumnIndex(lbl_viewingOptions, 1);
 
-        GridPane.setRowIndex(label16, 4);
+        GridPane.setRowIndex(lbl_viewingOptions, 3);
 
-        label16.setLayoutX(217.0);
+        lbl_viewingOptions.setLayoutX(217.0);
 
-        label16.setLayoutY(224.0);
+        lbl_viewingOptions.setLayoutY(179.0);
 
-        label16.setPrefHeight(21.0);
+        lbl_viewingOptions.setPrefHeight(21.0);
 
-        label16.setPrefWidth(235.0);
+        lbl_viewingOptions.setPrefWidth(235.0);
 
-        label16.setText("30");
-        label16.setFont(new Font(25));
+
+        lbl_viewingOptions.setFont(new Font(25));
+
+
+        GridPane.setColumnIndex(lbl_ticketPrice, 1);
+
+        GridPane.setRowIndex(lbl_ticketPrice, 4);
+
+        lbl_ticketPrice.setLayoutX(217.0);
+
+        lbl_ticketPrice.setLayoutY(224.0);
+
+        lbl_ticketPrice.setPrefHeight(21.0);
+
+        lbl_ticketPrice.setPrefWidth(235.0);
+
+        lbl_ticketPrice.setText("30");
+        lbl_ticketPrice.setFont(new Font(25));
 
 
         Line line2 = new Line();
@@ -509,20 +509,19 @@ public class TicketPayment extends VBox implements Updatable {
         line2.setEndX(primaryScreenBounds.getWidth() / 2);
 
 
-        GridPane.setColumnIndex(label17, 1);
+        GridPane.setColumnIndex(lbl_Hall, 1);
 
-        GridPane.setRowIndex(label17, 5);
+        GridPane.setRowIndex(lbl_Hall, 5);
 
-        label17.setLayoutX(217.0);
+        lbl_Hall.setLayoutX(217.0);
 
-        label17.setLayoutY(263.0);
+        lbl_Hall.setLayoutY(263.0);
 
-        label17.setPrefHeight(21.0);
+        lbl_Hall.setPrefHeight(21.0);
 
-        label17.setPrefWidth(235.0);
+        lbl_Hall.setPrefWidth(235.0);
 
-        label17.setText("1");
-        label17.setFont(new Font(25));
+        lbl_Hall.setFont(new Font(25));
 
 
         line0.setEndY(primaryScreenBounds.getHeight());
@@ -709,7 +708,7 @@ public class TicketPayment extends VBox implements Updatable {
 
         gridPane1.getChildren().add(label7);
 
-        gridPane1.getChildren().add(label8);
+        gridPane1.getChildren().add(lbl_totalPrice);
 
         gridPane.getChildren().add(label9);
 
@@ -719,15 +718,15 @@ public class TicketPayment extends VBox implements Updatable {
 
         gridPane.getChildren().add(label12);
 
-        gridPane.getChildren().add(label13);
+        gridPane.getChildren().add(lbl_movieTitle);
 
-        gridPane.getChildren().add(label14);
+        gridPane.getChildren().add(lbl_NoTickets);
 
-        gridPane.getChildren().add(label15);
+        gridPane.getChildren().add(lbl_viewingOptions);
 
-        gridPane.getChildren().add(label16);
+        gridPane.getChildren().add(lbl_ticketPrice);
 
-        gridPane.getChildren().add(label17);
+        gridPane.getChildren().add(lbl_Hall);
 
         vBox1.getChildren().add(gridPane);
 
@@ -800,6 +799,7 @@ public class TicketPayment extends VBox implements Updatable {
 
         });
         jFXButton.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
+
             @Override
             public void handle(javafx.event.ActionEvent event) {
                 String newValue = String.valueOf(jFXComboBox.getSelectionModel().selectedItemProperty().getValue());
@@ -817,7 +817,11 @@ public class TicketPayment extends VBox implements Updatable {
     }
 
     public void updateScene() {
-
+        lbl_movieTitle.setText(Main.getCurrentOrder().getTickets().get(0).getMovie().getInfo().getName());
+        lbl_NoTickets.setText("" + Main.getCurrentOrder().getTickets().size());
+        lbl_viewingOptions.setText(Main.getCurrentOrder().getTickets().get(0).getViewingOption() + "");
+        lbl_Hall.setText(Main.getCurrentOrder().getTickets().get(0).getHallIndex() + "");
+        
 
     }
 }

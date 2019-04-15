@@ -185,10 +185,7 @@ public class MovieDetails extends VBox implements Updatable {
         //Stack Pane to set Padding
 
 
-
-
         FlowPane flow_mediaPlayer = new FlowPane();
-
 
 
         try {

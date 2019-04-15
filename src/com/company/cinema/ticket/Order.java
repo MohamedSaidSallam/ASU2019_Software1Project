@@ -8,6 +8,13 @@ public class Order {
     private ArrayList<Ticket> tickets = new ArrayList<>();
     // endregion Variables
 
+    //region Constructor
+    public Order(ArrayList<Ticket> tickets) {
+        this.tickets = tickets;
+
+    }
+    //endregion Constructor
+
     // region accessors
 
     public ArrayList<Ticket> getTickets() {

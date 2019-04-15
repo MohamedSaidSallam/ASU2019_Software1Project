@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.cinema.Movie;
 
+import com.company.cinema.ticket.Order;
 import com.company.ui.*;
 
 
@@ -30,6 +31,11 @@ public class Main extends Application {
     private static Pane[] panes = new Pane[4];
 
     private static Movie currentMovie;
+
+
+    private static Order currentOrder;
+
+
 
     public static void main(String[] args) {
         launch(args);
@@ -66,6 +72,14 @@ public class Main extends Application {
 
     public static void setCurrentMovie(Movie currentMovie) {
         Main.currentMovie = currentMovie;
+    }
+
+    public static Order getCurrentOrder() {
+        return currentOrder;
+    }
+
+    public static void setCurrentOrder(Order currentOrder) {
+        Main.currentOrder = currentOrder;
     }
 
     public static Button createButton(String text, float widthScale, float heightScale) {
