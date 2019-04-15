@@ -20,7 +20,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import kotlin.jvm.internal.MagicApiIntrinsics;
 
 public class SelectionScene extends BorderPane implements Updatable {
 
@@ -97,7 +96,6 @@ public class SelectionScene extends BorderPane implements Updatable {
 
         vbx_left.getChildren().addAll(imgV_moviePoster, lbl_movieTitle);
         // endregion MoviePanel
-
 
         // region Options
 

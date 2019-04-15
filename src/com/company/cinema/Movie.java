@@ -1,8 +1,10 @@
 package com.company.cinema;
 
+import java.util.List;
+
 public class Movie {
 
-    public class Info {
+    public static class Info {
         private String name;
         private MPAA rating;
         private int duration;
@@ -11,7 +13,7 @@ public class Movie {
         private float IMDBscore;
         private int metascore;
         private int tomatometer;
-        private Genre[] genres;
+        private List<Genre> genres;
         private String[] actors;
         private String[] writers;
         private String director;
@@ -21,7 +23,7 @@ public class Movie {
 
         // region Constructor
 
-        public Info(String name, MPAA rating, int duration, String trailer, String plot, float IMDBscore, int metascore, int tomatometer, Genre[] genres, String[] actors, String[] writers, String director) {
+        public Info(String name, MPAA rating, int duration, String trailer, String plot, float IMDBscore, int metascore, int tomatometer, List<Genre> genres, String[] actors, String[] writers, String director) {
             this.name = name;
             this.rating = rating;
             this.duration = duration;
@@ -84,7 +86,7 @@ public class Movie {
             return trailer;
         }
 
-        public Genre[] getGenres() {
+        public List<Genre> getGenres() {
             return genres;
         }
 
@@ -137,13 +139,13 @@ public class Movie {
             this.trailer = trailer;
         }
 
-        public void setGenres(Genre[] genres) {
+        public void setGenres(List<Genre> genres) {
             this.genres = genres;
         }
         // endregion mutators
     }
 
-    private int id;
+    private String imdbID;
     private boolean available;
     private int[] availableSessionsIndices;
 
@@ -154,20 +156,20 @@ public class Movie {
 
     // region Constructor
 
-    public Movie(int id, boolean available, int[] availableSessionsIndices, ViewingOption[] viewingOptions, String name, MPAA rating, int duration, String trailer, String plot, float IMDBscore, int metascore, int tomatometer, Genre[] genres, String[] actors, String[] writers, String directors) {
-        this.id = id;
+    public Movie(String imdbID, boolean available, int[] availableSessionsIndices, ViewingOption[] viewingOptions, Info info) {
+        this.imdbID = imdbID;
         this.available = available;
         this.availableSessionsIndices = availableSessionsIndices;
         this.viewingOptions = viewingOptions;
-        this.info = new Info(name, rating, duration, trailer, plot, IMDBscore, metascore, tomatometer, genres, actors, writers, directors);
+        this.info = info;
     }
 
     // endregion Constructor
 
     //region accessors
 
-    public int getId() {
-        return id;
+    public String getImdbID() {
+        return imdbID;
     }
 
     public boolean isAvailable() {
@@ -189,8 +191,8 @@ public class Movie {
 
     //region mutators
 
-    public void setId(int id) {
-        this.id = id;
+    public void setImdbID(String imdbID) {
+        this.imdbID = imdbID;
     }
 
     public void setAvailable(boolean available) {

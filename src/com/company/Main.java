@@ -1,6 +1,13 @@
 package com.company;
 
+import com.company.cinema.Genre;
+import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
+import com.company.externalapi.imdb.IMDB;
+import com.company.externalapi.imdb.response.IMDBResponse;
+import com.company.json.JsonParser;
+import com.company.prototyping.APIData;
+import com.company.prototyping.APIProto;
 import com.company.ui.BrowseMovies;
 import com.company.ui.MovieDetails;
 import com.company.ui.SelectionScene;
@@ -10,6 +17,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends Application {
 
@@ -22,14 +33,30 @@ public class Main extends Application {
     public static final String PATH_RESOURCES_IMG_RATINGS = PATH_RESOURCES_IMG + "ratings/";
 
     private static final String FILE_STYLES = PATH_RESOURCES + "styles.css";
+    private static final String PATH_RESOURCES_JSON = PATH_RESOURCES + "json/";
+    private static final String PATH_RESOURCES_JSON_MOVIES = PATH_RESOURCES_JSON + "movies/";
     // endregion Files
     // endregion Constants
 
+    // region Variables
     private static Stage window;
     private static Scene scene;
     private static Pane[] panes = new Pane[4];
 
     private static Movie currentMovie;
+    // endregion Variables
+
+    // region accessors
+    public static Movie getCurrentMovie() {
+        return currentMovie;
+    }
+    // endregion accessors
+
+    // region mutators
+    public static void setCurrentMovie(Movie currentMovie) {
+        Main.currentMovie = currentMovie;
+    }
+    // endregion mutators
 
     public static void main(String[] args) {
         launch(args);
@@ -42,12 +69,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        panes[0] = new BrowseMovies(primaryStage);
+        System.out.println("Started.."); //todo delete me
+
+        window = primaryStage;
+
+        List<Movie> movies = getMoviesList();
+
+        panes[0] = new BrowseMovies(primaryStage, movies);
         panes[1] = new MovieDetails(primaryStage);
         panes[2] = new SelectionScene(primaryStage);
 //        panes[3] = new MovieDetails(primaryStage);
 
-        window = primaryStage;
 
         scene = new Scene(panes[0]);
         scene.getStylesheets().add("file:" + FILE_STYLES);
@@ -58,14 +90,71 @@ public class Main extends Application {
         window.show();
     }
 
-    public static Movie getCurrentMovie() {
-        return currentMovie;
+    private List<Movie> getMoviesList() {
+        List<APIData> apiDataList = JsonParser.stringToAPIData(APIProto.getAPIData());
+        List<Movie> movies = new ArrayList<>();
+        List<String> localDataIDs = new ArrayList<>();
+
+        for (File file : new File(PATH_RESOURCES_JSON_MOVIES).listFiles()) {
+            if (!file.isDirectory()) {
+                localDataIDs.add(file.getName().substring(0, file.getName().length()-5));
+            }
+        }
+
+        for (APIData apiData : apiDataList) {
+            IMDBResponse imdbResponse;
+            if (localDataIDs.contains(apiData.getImdbID())) {
+                localDataIDs.remove(apiData.getImdbID());
+
+                imdbResponse = JsonParser.readIMDBResponse(apiData.getImdbID());
+            } else {
+                imdbResponse = IMDB.getMovieDetails(apiData.getImdbID());
+
+                JsonParser.writeMovie(imdbResponse);
+            }
+
+            getMovieFromIMDBResponse(movies, apiData, imdbResponse);
+        }
+
+        for (String name : localDataIDs) {
+            new File(PATH_RESOURCES_JSON_MOVIES + name + ".json").delete();
+        }
+
+        return movies;
     }
 
-    public static void setCurrentMovie(Movie currentMovie) {
-        Main.currentMovie = currentMovie;
+    private void getMovieFromIMDBResponse(List<Movie> movies, APIData apiData, IMDBResponse imdbResponse) {
+        List<Genre> genres = new ArrayList<>();
+
+        for (String genre : imdbResponse.getGenre().split(", ")) {
+            genres.add(Genre.valueOf(genre.replaceAll("-| ", "_")));
+        }
+
+        Movie.Info info = new Movie.Info(
+                imdbResponse.getTitle(),
+                MPAA.valueOf(imdbResponse.getRated().replaceAll("-", "")),
+                Integer.parseInt(imdbResponse.getRuntime().substring(0, imdbResponse.getRuntime().length() - 4)),
+                apiData.getTrailer(),
+                imdbResponse.getPlot(),
+                Float.parseFloat(imdbResponse.getImdbRating()),
+                Integer.parseInt(imdbResponse.getMetascore()),
+                0,//todo temp
+                genres,
+                imdbResponse.getActors().split(", "),
+                imdbResponse.getWriter().split(", "),
+                imdbResponse.getDirector()
+        );
+
+        movies.add(new Movie(
+                imdbResponse.getImdbID(),
+                apiData.isAvailable(),
+                new int[]{0}, //todo temp
+                apiData.getViewingOptions(),
+                info
+        ));
     }
 
+    // region Common UI
     public static Button createButton(String text, float widthScale, float heightScale) {
         Button button = new Button(text);
 
@@ -76,4 +165,5 @@ public class Main extends Application {
 
         return button;
     }
+    // endregion Common UI
 }

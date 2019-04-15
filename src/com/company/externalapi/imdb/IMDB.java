@@ -28,14 +28,6 @@ public class IMDB {
     }
     // endregion Constructor
 
-    public static void init(){
-        Dotenv dotenv = Dotenv.load();
-
-        apiFormat = "apikey=" + dotenv.get("omdbapi_APIKey") + "&i=";
-
-        initialized = true;
-    }
-
     private static String getMovieDetailsString(String movieID) {
         if(initialized) {
             try {
@@ -61,8 +53,18 @@ public class IMDB {
                 return null;
             }
         }else{
-            return null;
+            initialize();
+
+            return getMovieDetailsString(movieID);
         }
+    }
+
+    private static void initialize() {
+        Dotenv dotenv = Dotenv.load();
+
+        apiFormat = "apikey=" + dotenv.get("omdbapi_APIKey") + "&i=";
+
+        initialized = true;
     }
 
     public static IMDBResponse getMovieDetails(String movieID) {
@@ -71,7 +73,6 @@ public class IMDB {
 
     public static void main(String[] args) {
         //for Testing purposes
-        init();
         System.out.println(getMovieDetails("tt3896198").getTitle());
     }
 }

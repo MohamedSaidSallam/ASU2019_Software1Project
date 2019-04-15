@@ -2,21 +2,56 @@
     {
         "imdbID": "tt3896198",
         "Poster": "https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg",
-        "Trailer": "Trailer 1"
+        "Trailer": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        "available": true,
+        "availableSessionsIndices": "",
+        "viewingOptions": [
+            "Normal",
+            "IMAX"
+        ]
     },
     {
-        "imdbID": "tt3896198",
+        "imdbID": "tt0099685",
         "Poster": "https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg",
-        "Trailer": "Trailer 2"
+        "Trailer": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        "available": true,
+        "availableSessionsIndices": "",
+        "viewingOptions": [
+            "Normal",
+            "IMAX"
+        ]
     },
     {
-        "imdbID": "tt3896198",
+        "imdbID": "tt1485796",
         "Poster": "https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg",
-        "Trailer": "Trailer 3"
+        "Trailer": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        "available": true,
+        "availableSessionsIndices": "",
+        "viewingOptions": [
+            "Normal",
+            "IMAX"
+        ]
     },
     {
-        "imdbID": "tt3896198",
+        "imdbID": "tt0816692",
         "Poster": "https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg",
-        "Trailer": "Trailer 4"
+        "Trailer": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        "available": true,
+        "availableSessionsIndices": "",
+        "viewingOptions": [
+            "Normal",
+            "IMAX"
+        ]
+    },
+    {
+        "imdbID": "tt0482571",
+        "Poster": "https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg",
+        "Trailer": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        "available": true,
+        "availableSessionsIndices": "",
+        "viewingOptions": [
+            "Normal",
+            "IMAX"
+        ]
     }
 ]

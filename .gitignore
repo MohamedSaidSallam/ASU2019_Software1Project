@@ -109,3 +109,7 @@ hs_err_pid*
 
 _temp/
 .env
+src/resources/json/movies/*
+!src/resources/json/movies/.gitkeep
+src/resources/img/poster/*
+!src/resources/img/poster/.gitkeep

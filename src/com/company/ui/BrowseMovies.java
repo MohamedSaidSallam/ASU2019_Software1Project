@@ -1,10 +1,7 @@
 package com.company.ui;
 
 import com.company.Main;
-import com.company.cinema.Genre;
-import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
-import com.company.cinema.ViewingOption;
 import com.company.ui.sections.Header;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,23 +11,18 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-import static com.company.cinema.Genre.Musical;
-import static com.company.cinema.Genre.Thriller;
-import static com.company.cinema.ViewingOption.Normal;
+import java.util.List;
 
 public class BrowseMovies extends VBox implements Updatable {
 
     private Stage window;
 
-    public BrowseMovies(Stage window) {
+    public BrowseMovies(Stage window, List<Movie> movies) {
         this.window = window;
-
 
         // region Header
         Header header = new Header(window);
@@ -42,16 +34,7 @@ public class BrowseMovies extends VBox implements Updatable {
 
         hbx_movies.setSpacing(10);//todo magic numbers
 
-        Movie[] movieArr = new Movie[9];
-        int test = 0;
-        for (Movie movie : movieArr) {
-            test++;
-
-            movie = new Movie(test, true, new int[]{0, 1},
-                    new ViewingOption[]{Normal}, String.format("Movie %d", test), MPAA.PG,
-                    90, "trailer", "Tincidunt eget adipiscing cubilia vel purus potenti senectus tristique, praesent egestas torquent lectus placerat nullam curae arcu nostra, iaculis erat commodo consectetur class potenti posuere pretium pulvinar libero id curabitur class lacinia nostra luctus.",
-                    9, 20, 20, new Genre[]{Musical, Thriller}, new String[]{"Actor1", "Actor2"}, new String[]{"Writer1", "Writer2"}, "Director");
-
+        for (Movie movie: movies) {
             hbx_movies.getChildren().add(createMovieVBox(movie));
         }
         // endregion Content
@@ -73,8 +56,6 @@ public class BrowseMovies extends VBox implements Updatable {
         // endregion ScrollPane
         // endregion Movies
 
-        VBox vbx_main = new VBox();
-
         this.getStyleClass().add("main");
 
         this.getChildren().addAll(header, sp_movies);
@@ -85,7 +66,7 @@ public class BrowseMovies extends VBox implements Updatable {
         Label lbl_movieTitle = new Label(movie.getInfo().getName());
         lbl_movieTitle.getStyleClass().add("MovieTitle");
 
-        Image image = new Image(String.format("file:" + Main.PATH_RESOURCES_IMG_POSTER + "/%d.jpg", movie.getId()));
+        Image image = new Image(String.format("file:" + Main.PATH_RESOURCES_IMG_POSTER + "/%s.jpg", movie.getImdbID()));
         ImageView imageView = new ImageView(image);
         imageView.fitHeightProperty().bind(window.heightProperty().multiply(0.62));
         imageView.fitWidthProperty().bind(imageView.fitHeightProperty().multiply(image.getWidth() / image.getHeight()));
