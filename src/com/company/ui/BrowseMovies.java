@@ -5,6 +5,7 @@ import com.company.cinema.Genre;
 import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
 import com.company.cinema.ViewingOption;
+import com.company.ui.sections.Header;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -23,7 +24,7 @@ import static com.company.cinema.Genre.Musical;
 import static com.company.cinema.Genre.Thriller;
 import static com.company.cinema.ViewingOption.Normal;
 
-public class BrowseMovies extends VBox {
+public class BrowseMovies extends VBox implements Updatable {
 
     private Stage window;
 
@@ -32,33 +33,8 @@ public class BrowseMovies extends VBox {
 
 
         // region Header
-        // region Content
-//        ImageView img_logo = new ImageView(new Image("file:src/resources/img/placeholder/logo.png"));
-        ImageView img_logo = new ImageView(new Image("file:src/resources/img/CTD_Logo.png"));
-        img_logo.fitWidthProperty().bind(window.widthProperty().multiply(0.07));
-        img_logo.fitHeightProperty().bind(img_logo.fitWidthProperty());
-
-        Label lbl_title = new Label("Cinema Ticket Dispenser");
-        lbl_title.getStyleClass().add("Title");
-
-        Button btn_temp1 = createButton("temp1", 0.1f, 0.05f);
-
-        Button btn_temp2 = createButton("temp2", 0.1f, 0.05f);
-
-        Region region = new Region();
-        HBox.setHgrow(region, Priority.ALWAYS);
+        Header header = new Header(window);
         // endregion Header
-
-        // region HBox
-        HBox hbx_header = new HBox();
-
-        hbx_header.setPadding(new Insets(10, 10, 10, 10));//todo magic numbers
-        hbx_header.spacingProperty().bind(window.widthProperty().multiply(0.01));
-        hbx_header.setAlignment(Pos.CENTER);
-
-        hbx_header.getChildren().addAll(img_logo, lbl_title, region, btn_temp1, btn_temp2);
-        // endregion HBox
-        // endregion Top
 
         // region Movies
         // region Content
@@ -101,7 +77,7 @@ public class BrowseMovies extends VBox {
 
         this.getStyleClass().add("main");
 
-        this.getChildren().addAll(hbx_header, sp_movies);
+        this.getChildren().addAll(header, sp_movies);
     }
 
 
@@ -109,7 +85,7 @@ public class BrowseMovies extends VBox {
         Label lbl_movieTitle = new Label(movie.getInfo().getName());
         lbl_movieTitle.getStyleClass().add("MovieTitle");
 
-        Image image = new Image(String.format("file:src/resources/img/%d.jpg", movie.getId()));
+        Image image = new Image(String.format("file:" + Main.PATH_RESOURCES_IMG_POSTER + "/%d.jpg", movie.getId()));
         ImageView imageView = new ImageView(image);
         imageView.fitHeightProperty().bind(window.heightProperty().multiply(0.62));
         imageView.fitWidthProperty().bind(imageView.fitHeightProperty().multiply(image.getWidth() / image.getHeight()));
@@ -142,14 +118,8 @@ public class BrowseMovies extends VBox {
         return vbx;
     }
 
-    private Button createButton(String text, float widthScale, float heightScale) {
-        Button button = new Button(text);
-
-        button.prefWidthProperty().bind(window.widthProperty().multiply(widthScale));
-        button.prefHeightProperty().bind(window.heightProperty().multiply(heightScale));
-
-        button.getStyleClass().add("btn");
-
-        return button;
+    public void updateScene() {
+        //todo implement
+        throw new UnsupportedOperationException();
     }
 }

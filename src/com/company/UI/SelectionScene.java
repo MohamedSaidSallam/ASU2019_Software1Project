@@ -1,5 +1,6 @@
 package com.company.ui;
 
+import com.company.Main;
 import com.company.cinema.Hall;
 import com.company.cinema.Seat;
 import com.company.cinema.ViewingOption;
@@ -19,27 +20,29 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import kotlin.jvm.internal.MagicApiIntrinsics;
 
-public class SelectionScene extends BorderPane {
+public class SelectionScene extends BorderPane implements Updatable {
 
     // region Constants
+    // region Colors
     private static final Color SEAT_UNAVAILABLE_COLOR = Color.LIGHTCORAL;
     private static final Color SEAT_SELECTED_COLOR = Color.LIGHTSTEELBLUE;
     private static final Color SEAT_NOT_SELECTED_COLOR = Color.WHITE;
     private static final Color SEAT_STROKE_COLOR = Color.BLACK;
+    // endregion Colors
     // endregion Constants
 
     // region Variables
     private Stage window;
     private int numSeatsSelected = 0;
     private Label lbl_noGlassesValue;
-    private HBox hbx_top;
+//    private HBox hbx_top;
     // endregion Variables
 
 
     public SelectionScene(Stage primaryStage) {
         window = primaryStage;
-
 
         // region TESTING
         Seat seats[] = new Seat[100];
@@ -69,16 +72,14 @@ public class SelectionScene extends BorderPane {
         choice = seats.clone();
         // endregion TESTING
 
-
         this.getStyleClass().add("main");
 
         // region Header
-        hbx_top = new Header();
+        Header header = new Header(window);
         // endregion Header
 
-
         // region MoviePanel
-        Image img_moviePoster = new Image("file:src/resources/Interstellar_film_poster.jpg");
+        Image img_moviePoster = new Image("file:"+ Main.PATH_RESOURCES_IMG_POSTER +"1.jpg"); // todo temp
         ImageView imgV_moviePoster = new ImageView(img_moviePoster);
         imgV_moviePoster.fitHeightProperty().bind(window.heightProperty().multiply(0.63));
         imgV_moviePoster.fitWidthProperty().bind(imgV_moviePoster.fitHeightProperty().multiply(img_moviePoster.getWidth() / img_moviePoster.getHeight()));
@@ -127,11 +128,11 @@ public class SelectionScene extends BorderPane {
 
         lbl_noGlassesValue = createOptionLabel("0");
 
-        Button btn_addGlasses = createButton("+", 0.01f, 0.05f);
+        Button btn_addGlasses = Main.createButton("+", 0.01f, 0.05f);
         btn_addGlasses.setOnAction(e -> lbl_noGlassesValue.setText(String.valueOf(Math.min(Integer.parseInt(lbl_noGlassesValue.getText()) + 1, numSeatsSelected))));
         btn_addGlasses.getStyleClass().add("NoFocus");
 
-        Button btn_removeGlasses = createButton("-", 0.01f, 0.05f);
+        Button btn_removeGlasses = Main.createButton("-", 0.01f, 0.05f);
         btn_removeGlasses.setOnAction(e -> lbl_noGlassesValue.setText(String.valueOf(Math.max(Integer.parseInt(lbl_noGlassesValue.getText()) - 1, 0))));
         btn_removeGlasses.getStyleClass().add("NoFocus");
 
@@ -215,7 +216,7 @@ public class SelectionScene extends BorderPane {
         // endregion SeatSelection
 
         // region Footer
-        Button btn_btm = createButton("Next", 0.1f, 0.05f);
+        Button btn_btm = Main.createButton("Next", 0.1f, 0.05f);
 
         HBox hbx_btm = new HBox();
 
@@ -233,7 +234,7 @@ public class SelectionScene extends BorderPane {
         });//todo remove this later
         // endregion Footer
 
-        this.setTop(hbx_top);
+        this.setTop(header);
         this.setLeft(vbx_left);
         this.setCenter(grd_seats);
         this.setRight(vbx_right);
@@ -258,14 +259,8 @@ public class SelectionScene extends BorderPane {
         return label;
     }
 
-    private Button createButton(String text, float widthScale, float heightScale) {
-        Button button = new Button(text);
-
-        button.getStyleClass().add("btn");
-
-        button.prefWidthProperty().bind(window.widthProperty().multiply(widthScale));
-        button.prefHeightProperty().bind(window.heightProperty().multiply(heightScale));
-
-        return button;
+    public void updateScene() {
+        //todo implement
+        throw new UnsupportedOperationException();
     }
 }

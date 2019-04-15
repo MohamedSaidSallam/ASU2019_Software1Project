@@ -5,7 +5,8 @@ import com.company.cinema.Genre;
 import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
 import com.company.cinema.ViewingOption;
-import resources.videos.MediaControl;
+import com.company.ui.sections.Header;
+import com.company.ui.sections.MediaControl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,7 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -26,7 +26,16 @@ import static com.company.cinema.ViewingOption.Normal;
 
 public class MovieDetails extends VBox implements Updatable {
 
-    Stage window;
+    // region Constants
+    // region Files
+    private static final String FILE_TOMATO_FRESH = Main.PATH_RESOURCES_IMG_RATINGS + "fresh_tomato.png";
+    private static final String FILE_TOMATO_ROTTEN = Main.PATH_RESOURCES_IMG_RATINGS + "rotten_tomato.png";
+    private static final String FILE_IMDB = Main.PATH_RESOURCES_IMG_RATINGS + "imdb.png";
+    private static final String FILE_METACRITIC = Main.PATH_RESOURCES_IMG_RATINGS + "metacritic.png";
+    // endregion Files
+    // endregion Constants
+
+    private Stage window;
     private Label lbl_movieTitle;
     private Image img_movie;
     private ImageView imgV_movie;
@@ -51,42 +60,13 @@ public class MovieDetails extends VBox implements Updatable {
     public MovieDetails(Stage window) {
         this.window = window;
 
-        // region Top
-        // region Content
-        Image img_logo = new Image("file:src/resources/img/placeholder/logo.png");
-        ImageView imgV_logo = new ImageView(img_logo);
-
-        imgV_logo.fitHeightProperty().bind(window.heightProperty().multiply(0.06));
-        imgV_logo.fitWidthProperty().bind(imgV_logo.fitHeightProperty().multiply(img_logo.getWidth() / img_logo.getHeight()));
-
-
-        Label lbl_title = new Label("Cinema Ticket Dispenser");
-        lbl_title.setFont(Font.font("Amble CN", FontWeight.BOLD, 24));//todo magicNumber
-
-        Button btn_temp1 = new Button("temp1");
-        btn_temp1.getStyleClass().add("btn");
-
-        Button btn_temp2 = new Button("temp2");
-        btn_temp2.getStyleClass().add("btn");
-
-        Region region = new Region();
-        HBox.setHgrow(region, Priority.ALWAYS);
-        // endregion Content
-
-        // region HBox
-        HBox hbx_top = new HBox();
-
-        hbx_top.setPadding(new Insets(10, 10, 10, 10));//todo magic numbers
-        hbx_top.setSpacing(10);//todo magic numbers
-        hbx_top.setAlignment(Pos.CENTER);
-
-        hbx_top.getChildren().addAll(imgV_logo, lbl_title, region, btn_temp1, btn_temp2);
-        // endregion HBox
-        // endregion top
+        // region Header
+        Header header = new Header(window);
+        // endregion Header
 
         //region Overview
         //region Poster
-        img_movie = new Image("file:src/resources/img/1.jpg");
+        img_movie = new Image("file:" + Main.PATH_RESOURCES_IMG_POSTER + "1.jpg"); // todo temp
         imgV_movie = new ImageView(img_movie);
 
         imgV_movie.fitHeightProperty().bind(window.heightProperty().multiply(0.52));
@@ -104,7 +84,7 @@ public class MovieDetails extends VBox implements Updatable {
         Region rgn_star = new Region();
         HBox.setHgrow(rgn_star, Priority.ALWAYS);
 
-        Image img_star = new Image("file:src/resources/img/ratings/imdb.png");
+        Image img_star = new Image("file:" + FILE_IMDB);
         ImageView imgV_star = new ImageView(img_star);
         imgV_star.fitHeightProperty().bind(window.heightProperty().multiply(0.045));
         imgV_star.fitWidthProperty().bind(imgV_star.fitHeightProperty().multiply(img_star.getWidth() / img_star.getHeight()));
@@ -198,7 +178,8 @@ public class MovieDetails extends VBox implements Updatable {
 
 
         //region Media Player
-        String path = "file:///C:/Users/Sameh/Desktop/Software%20Test/ASU2019_Software1Project/src/com/company/sample.mp4";
+//        String path = "file:///C:/Users/Sameh/Desktop/Software%20Test/ASU2019_Software1Project/src/com/company/sample.mp4";
+        String path = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
         //Stack Pane to set Padding
 
@@ -234,18 +215,18 @@ public class MovieDetails extends VBox implements Updatable {
 
         lbl_metascore = new Label(String.valueOf(movie.getInfo().getMetascore()));
         lbl_metascore.getStyleClass().add("MovieDetailsMetascore");
-        if (movie.getInfo().getMetascore() > 60) {                //Changes background color according to Metascore
-            String style = "-fx-background-color: #6c3;";
-            lbl_metascore.setStyle(style);
-        } else if (movie.getInfo().getMetascore() > 39) {
-            String style = "-fx-background-color: #fc3;";
-            lbl_metascore.setStyle(style);
-        } else {
-            String style = "-fx-background-color: #f00;";
-            lbl_metascore.setStyle(style);
-        }
 
-        Image img_metascore = new Image("file:src/resources/img/ratings/metacritic.png");
+        String style;
+        if (movie.getInfo().getMetascore() > 60) {
+            style = "-fx-background-color: #6c3;";//todo add to the css file
+        } else if (movie.getInfo().getMetascore() > 39) {
+            style = "-fx-background-color: #fc3;";//todo add to the css file
+        } else {
+            style = "-fx-background-color: #f00;";//todo add to the css file
+        }
+        lbl_metascore.setStyle(style);
+
+        Image img_metascore = new Image("file:" + FILE_METACRITIC);
         ImageView imgV_metascore = new ImageView(img_metascore);
         imgV_metascore.fitHeightProperty().bind(window.heightProperty().multiply(0.07));
         imgV_metascore.fitWidthProperty().bind(imgV_metascore.fitHeightProperty().multiply(img_metascore.getWidth() / img_metascore.getHeight()));
@@ -264,7 +245,7 @@ public class MovieDetails extends VBox implements Updatable {
         lbl_rottenTomatoes = new Label();
         lbl_rottenTomatoes.getStyleClass().add("MovieDetailsTomatometer");
 
-        img_rottenTomatoes = new Image("file:src/resources/img/ratings/fresh_tomato.png");
+        img_rottenTomatoes = new Image("file:" + FILE_TOMATO_FRESH);
 
 
         imgV_rottenTomatoes = new ImageView(img_rottenTomatoes);
@@ -288,7 +269,6 @@ public class MovieDetails extends VBox implements Updatable {
 
 
         //endregion Hbox scores
-
 
         Button btn_purchase = new Button("Purchase Tickets");
 
@@ -316,38 +296,33 @@ public class MovieDetails extends VBox implements Updatable {
 
         Region rgn_bot = new Region(); // To replace padding below media player
 
-
         //endregion Bottom
 
 
-        this.getChildren().addAll(hbx_top, hbx_overview, hbx_bot, rgn_bot);
-
-//        window.setFullScreen(true);
-//        window.setTitle("CTD");
-//        window.setScene(movieDetails);
-//        window.show();
-
+        this.getChildren().addAll(header, hbx_overview, hbx_bot, rgn_bot);
     }
 
     public void updateScene() {
-        lbl_movieTitle.setText(Main.getCurrentMovie().getInfo().getName());
-        lbl_IMDBscore.setText(String.valueOf(Main.getCurrentMovie().getInfo().getIMDBscore()));
-        lbl_specs.setText(Main.getCurrentMovie().getInfo().getRating() + " | " + Main.getCurrentMovie().getInfo().getDuration() + " min | " + Main.getCurrentMovie().getGenresString());
-        lbl_plot.setText(Main.getCurrentMovie().getInfo().getPlot());
-        lbl_metascore.setText(String.valueOf(Main.getCurrentMovie().getInfo().getMetascore()));
-        lbl_rottenTomatoes.setText(Main.getCurrentMovie().getInfo().getTomatometer() + "%");
-        txt_directors.setText(Main.getCurrentMovie().getInfo().getDirector());
-        txt_writers.setText(Main.getCurrentMovie().getWritersString());
-        txt_actors.setText(Main.getCurrentMovie().getActorsString());
+        Movie currentMovie = Main.getCurrentMovie();
+
+        lbl_movieTitle.setText(currentMovie.getInfo().getName());
+        lbl_IMDBscore.setText(String.valueOf(currentMovie.getInfo().getIMDBscore()));
+        lbl_specs.setText(currentMovie.getInfo().getRating() + " | " + currentMovie.getInfo().getDuration() + " min | " + currentMovie.getGenresString());
+        lbl_plot.setText(currentMovie.getInfo().getPlot());
+        lbl_metascore.setText(String.valueOf(currentMovie.getInfo().getMetascore()));
+        lbl_rottenTomatoes.setText(currentMovie.getInfo().getTomatometer() + "%");
+        txt_directors.setText(currentMovie.getInfo().getDirector());
+        txt_writers.setText(currentMovie.getWritersString());
+        txt_actors.setText(currentMovie.getActorsString());
 
 
-        img_movie = new Image("file:src/resources/img/" + Main.getCurrentMovie().getId() + ".jpg");
+        img_movie = new Image("file:" + Main.PATH_RESOURCES_IMG_POSTER + currentMovie.getId() + ".jpg");
         imgV_movie.setImage(img_movie);
 
-        if (Main.getCurrentMovie().getInfo().getTomatometer() > 59) {   //Changes image according to Tomatometer
-            img_rottenTomatoes = new Image("file:src/resources/img/ratings/fresh_tomato.png");
+        if (currentMovie.getInfo().getTomatometer() > 59) {   //Changes image according to Tomatometer
+            img_rottenTomatoes = new Image("file:" + FILE_TOMATO_FRESH);
         } else {
-            img_rottenTomatoes = new Image("file:src/resources/img/ratings/rotten_tomato.png");
+            img_rottenTomatoes = new Image("file:" + FILE_TOMATO_ROTTEN);
         }
         imgV_rottenTomatoes.setImage(img_rottenTomatoes);
 
