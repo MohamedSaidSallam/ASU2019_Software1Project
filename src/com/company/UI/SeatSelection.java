@@ -20,7 +20,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import kotlin.jvm.internal.MagicApiIntrinsics;
+
+import static com.company.Main.PATH_RESOURCES_IMG_POSTER;
 
 
 public class SeatSelection extends BorderPane implements Updatable {
@@ -87,11 +88,11 @@ public class SeatSelection extends BorderPane implements Updatable {
 
         // region MoviePanel
 
-        img_moviePoster = new Image("file:src/resources/Interstellar_film_poster.jpg");
+        img_moviePoster = new Image("file:" + Main.PATH_RESOURCES_IMG_POSTER + "1.jpg");
         imgV_moviePoster = new ImageView(img_moviePoster);
 
 
-        imgV_moviePoster.fitHeightProperty().bind(window.heightProperty().multiply(0.63));
+        imgV_moviePoster.fitHeightProperty().bind(window.heightProperty().multiply(0.43));
         imgV_moviePoster.fitWidthProperty().bind(imgV_moviePoster.fitHeightProperty().multiply(img_moviePoster.getWidth() / img_moviePoster.getHeight()));
 
         lbl_movieTitle = new Label();
@@ -263,13 +264,10 @@ public class SeatSelection extends BorderPane implements Updatable {
         return label;
     }
 
-    public void updateScene() {
-        //todo implement
-        throw new UnsupportedOperationException();
-    }
+
 
     public void updateScene() {
-        img_moviePoster = new Image("file:src/resources/img/" + Main.getCurrentMovie().getId() + ".jpg");
+        img_moviePoster = new Image("file:" + PATH_RESOURCES_IMG_POSTER + Main.getCurrentMovie().getId() + ".jpg");
         imgV_moviePoster.setImage(img_moviePoster);
 
         lbl_movieTitle.setText(Main.getCurrentMovie().getInfo().getName());

@@ -42,13 +42,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        window = primaryStage;
         panes[0] = new BrowseMovies(primaryStage);
         panes[1] = new MovieDetails(primaryStage);
         panes[2] = new SeatSelection(primaryStage);
         panes[3] = new TicketPayment(primaryStage);
 
 
-        window = primaryStage;
+
 
         scene = new Scene(panes[0]);
         scene.getStylesheets().add("file:" + FILE_STYLES);
