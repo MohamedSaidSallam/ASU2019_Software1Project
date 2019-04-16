@@ -13,13 +13,17 @@ import com.company.prototyping.APIProto;
 import com.company.ui.*;
 
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,6 +131,15 @@ public class Main extends Application {
                 imdbResponse = IMDB.getMovieDetails(apiData.getImdbID());
 
                 JsonParser.writeMovie(imdbResponse);
+
+                try {
+                    Image image = new Image(imdbResponse.getPoster());
+                    BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
+                    File output = new File(PATH_RESOURCES_IMG_POSTER + imdbResponse.getImdbID() + ".jpg");
+                    ImageIO.write(bufferedImage, "jpg", output);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             movies.add(getMovieFromIMDBResponse(apiData, imdbResponse));
@@ -141,19 +154,9 @@ public class Main extends Application {
 
     private Movie getMovieFromIMDBResponse(APIData apiData, IMDBResponse imdbResponse) {
         //todo move to IMDB class ?
-        int rottenScore = 0;
-        for(Rating rating: imdbResponse.getRatings()){
-            if(rating.getSource().equals("Rotten Tomatoes")){
-                rottenScore = Integer.parseInt(rating.getValue().substring(0, rating.getValue().length()-1));
-                break;
-            }
-        }
+        int rottenScore = getRottenScore(imdbResponse);
 
-        List<Genre> genres = new ArrayList<>();
-
-        for (String genre : imdbResponse.getGenre().split(", ")) {
-            genres.add(Genre.valueOf(genre.replaceAll("[- ]", "_")));
-        }
+        List<Genre> genres = getGenres(imdbResponse);
 
         return new Movie(
                 imdbResponse.getImdbID(),
@@ -175,6 +178,25 @@ public class Main extends Application {
                         imdbResponse.getDirector()
                 )
         );
+    }
+
+    private List<Genre> getGenres(IMDBResponse imdbResponse) {
+        List<Genre> genres = new ArrayList<>();
+        for (String genre : imdbResponse.getGenre().split(", ")) {
+            genres.add(Genre.valueOf(genre.replaceAll("[- ]", "_")));
+        }
+        return genres;
+    }
+
+    private int getRottenScore(IMDBResponse imdbResponse) {
+        int rottenScore = 0;
+        for(Rating rating: imdbResponse.getRatings()){
+            if(rating.getSource().equals("Rotten Tomatoes")){
+                rottenScore = Integer.parseInt(rating.getValue().substring(0, rating.getValue().length()-1));
+                break;
+            }
+        }
+        return rottenScore;
     }
 
     // region Common UI

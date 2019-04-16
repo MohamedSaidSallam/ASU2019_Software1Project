@@ -53,5 +53,16 @@
             "Normal",
             "IMAX"
         ]
+    },
+    {
+        "imdbID": "tt1228987",
+        "Poster": "https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg",
+        "Trailer": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        "available": true,
+        "availableSessionsIndices": "",
+        "viewingOptions": [
+            "Normal",
+            "IMAX"
+        ]
     }
 ]

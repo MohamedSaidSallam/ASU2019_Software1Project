@@ -10,9 +10,6 @@ public class APIData {
     @SerializedName("imdbID")
     @Expose()
     private String imdbID;
-    @SerializedName("Poster")
-    @Expose()
-    private String poster;
     @SerializedName("Trailer")
     @Expose()
     private String trailer;
@@ -25,23 +22,12 @@ public class APIData {
 
     // endregion Variables
 
-    // region Constructor
-    public APIData(String imdbID, String poster, String trailer) {
-        this.imdbID = imdbID;
-        this.poster = poster;
-        this.trailer = trailer;
-    }
-    // endregion Constructor
-
     // region accessors
 
     public String getImdbID() {
         return imdbID;
     }
 
-    public String getPoster() {
-        return poster;
-    }
 
     public String getTrailer() {
         return trailer;
@@ -61,10 +47,6 @@ public class APIData {
 
     public void setImdbID(String imdbID) {
         this.imdbID = imdbID;
-    }
-
-    public void setPoster(String poster) {
-        this.poster = poster;
     }
 
     public void setTrailer(String trailer) {
