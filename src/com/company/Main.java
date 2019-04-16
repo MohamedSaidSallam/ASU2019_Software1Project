@@ -6,6 +6,7 @@ import com.company.cinema.Movie;
 import com.company.cinema.ticket.Order;
 import com.company.externalapi.imdb.IMDB;
 import com.company.externalapi.imdb.response.IMDBResponse;
+import com.company.externalapi.imdb.response.Rating;
 import com.company.json.JsonParser;
 import com.company.prototyping.APIData;
 import com.company.prototyping.APIProto;
@@ -140,33 +141,39 @@ public class Main extends Application {
 
     private Movie getMovieFromIMDBResponse(APIData apiData, IMDBResponse imdbResponse) {
         //todo move to IMDB class ?
+        int rottenScore = 0;
+        for(Rating rating: imdbResponse.getRatings()){
+            if(rating.getSource().equals("Rotten Tomatoes")){
+                rottenScore = Integer.parseInt(rating.getValue().substring(0, rating.getValue().length()-1));
+                break;
+            }
+        }
+
         List<Genre> genres = new ArrayList<>();
 
         for (String genre : imdbResponse.getGenre().split(", ")) {
             genres.add(Genre.valueOf(genre.replaceAll("[- ]", "_")));
         }
 
-        Movie.Info info = new Movie.Info(
-                imdbResponse.getTitle(),
-                MPAA.valueOf(imdbResponse.getRated().replaceAll("-", "")),
-                Integer.parseInt(imdbResponse.getRuntime().substring(0, imdbResponse.getRuntime().length() - 4)),
-                apiData.getTrailer(),
-                imdbResponse.getPlot(),
-                Float.parseFloat(imdbResponse.getImdbRating()),
-                Integer.parseInt(imdbResponse.getMetascore()),
-                0,//todo temp
-                genres,
-                imdbResponse.getActors().split(", "),
-                imdbResponse.getWriter().split(", "),
-                imdbResponse.getDirector()
-        );
-
         return new Movie(
                 imdbResponse.getImdbID(),
                 apiData.isAvailable(),
                 new int[]{0}, //todo temp
                 apiData.getViewingOptions(),
-                info
+                new Movie.Info(
+                        imdbResponse.getTitle(),
+                        MPAA.valueOf(imdbResponse.getRated().replaceAll("-", "")),
+                        Integer.parseInt(imdbResponse.getRuntime().substring(0, imdbResponse.getRuntime().length() - 4)),
+                        apiData.getTrailer(),
+                        imdbResponse.getPlot(),
+                        Float.parseFloat(imdbResponse.getImdbRating()),
+                        Integer.parseInt(imdbResponse.getMetascore()),
+                        rottenScore,
+                        genres,
+                        imdbResponse.getActors().split(", "),
+                        imdbResponse.getWriter().split(", "),
+                        imdbResponse.getDirector()
+                )
         );
     }
 
