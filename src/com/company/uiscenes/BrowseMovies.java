@@ -3,6 +3,7 @@ package com.company.uiscenes;
 import com.company.Main;
 import com.company.cinema.Movie;
 import com.company.uiscenes.sections.Header;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -60,6 +61,8 @@ public class BrowseMovies extends VBox implements Updatable {
 
         this.getChildren().addAll(header, sp_movies);
     }
+
+
 
 
     private VBox createMovieVBox(Movie movie) {

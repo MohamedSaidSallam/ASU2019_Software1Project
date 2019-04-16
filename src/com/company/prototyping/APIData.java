@@ -1,3 +1,4 @@
+
 package com.company.prototyping;
 
 import com.company.cinema.ViewingOption;
@@ -62,3 +63,4 @@ public class APIData {
     }
     // endregion mutators
 }
+

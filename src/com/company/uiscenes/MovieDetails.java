@@ -1,9 +1,11 @@
+
 package com.company.uiscenes;
 
 import com.company.Main;
 import com.company.cinema.Movie;
 import com.company.uiscenes.sections.Header;
 import com.company.uiscenes.sections.MediaControl;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

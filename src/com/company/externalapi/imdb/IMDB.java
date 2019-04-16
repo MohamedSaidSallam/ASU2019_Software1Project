@@ -2,6 +2,9 @@ package com.company.externalapi.imdb;
 
 import com.company.externalapi.imdb.response.IMDBResponse;
 import io.github.cdimascio.dotenv.Dotenv;
+/*
+import io.github.cdimascio.dotenv.Dotenv;
+*/
 
 import java.io.InputStream;
 import java.net.URL;

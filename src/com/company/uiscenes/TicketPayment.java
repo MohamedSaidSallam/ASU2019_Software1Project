@@ -1,6 +1,7 @@
 package com.company.uiscenes;
 
 
+
 import com.company.Main;
 import com.company.payment.CardType;
 
@@ -404,7 +405,9 @@ public class TicketPayment extends VBox implements Updatable {
 
         lbl_totalPrice.setPrefWidth(131.0);
 
+/*
         lbl_totalPrice.setText("150");
+*/
         lbl_totalPrice.setFont(new Font(34));
 
 
@@ -817,11 +820,17 @@ public class TicketPayment extends VBox implements Updatable {
     }
 
     public void updateScene() {
+        int x=30 * (Main.getCurrentOrder().getTickets().size());
         lbl_movieTitle.setText(Main.getCurrentOrder().getTickets().get(0).getMovie().getInfo().getName());
         lbl_NoTickets.setText("" + Main.getCurrentOrder().getTickets().size());
         lbl_viewingOptions.setText(Main.getCurrentOrder().getTickets().get(0).getViewingOption() + "");
         lbl_Hall.setText(Main.getCurrentOrder().getTickets().get(0).getHallIndex() + "");
-        
+
+
+        lbl_totalPrice.setText(x+"");
+
+
+
 
     }
 }
