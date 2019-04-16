@@ -1,4 +1,4 @@
-package com.company.UI;
+package com.company.ui;
 
 
 import com.company.Main;

@@ -1,4 +1,4 @@
-package com.company.UI.sections;
+package com.company.ui.sections;
 
 import com.company.Main;
 import javafx.geometry.Insets;

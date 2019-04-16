@@ -1,12 +1,12 @@
-package com.company.UI;
+package com.company.ui;
 
 import com.company.Main;
 import com.company.cinema.Genre;
 import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
 import com.company.cinema.ViewingOption;
-import com.company.UI.sections.Header;
-import com.company.UI.sections.MediaControl;
+import com.company.ui.sections.Header;
+import com.company.ui.sections.MediaControl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

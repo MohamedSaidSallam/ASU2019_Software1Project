@@ -3,7 +3,7 @@ package com.company;
 import com.company.cinema.Movie;
 
 import com.company.cinema.ticket.Order;
-import com.company.UI.*;
+import com.company.ui.*;
 
 
 import javafx.application.Application;

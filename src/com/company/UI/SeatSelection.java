@@ -1,4 +1,4 @@
-package com.company.UI;
+package com.company.ui;
 
 import com.company.Main;
 import com.company.cinema.Hall;
@@ -6,7 +6,7 @@ import com.company.cinema.Seat;
 import com.company.cinema.ViewingOption;
 import com.company.cinema.ticket.Order;
 import com.company.cinema.ticket.Ticket;
-import com.company.UI.sections.Header;
+import com.company.ui.sections.Header;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
