@@ -10,7 +10,7 @@ import com.company.externalapi.imdb.response.Rating;
 import com.company.json.JsonParser;
 import com.company.prototyping.APIData;
 import com.company.prototyping.APIProto;
-import com.company.ui.*;
+import com.company.uiscenes.*;
 
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;

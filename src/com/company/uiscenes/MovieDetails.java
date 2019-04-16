@@ -1,12 +1,9 @@
-package com.company.ui;
+package com.company.uiscenes;
 
 import com.company.Main;
-import com.company.cinema.Genre;
-import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
-import com.company.cinema.ViewingOption;
-import com.company.ui.sections.Header;
-import com.company.ui.sections.MediaControl;
+import com.company.uiscenes.sections.Header;
+import com.company.uiscenes.sections.MediaControl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,15 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
-import static com.company.cinema.Genre.*;
-import static com.company.cinema.ViewingOption.Normal;
 
 public class MovieDetails extends VBox implements Updatable {
 
@@ -37,7 +30,6 @@ public class MovieDetails extends VBox implements Updatable {
 
     private Stage window;
     private Label lbl_movieTitle;
-    private Image img_movie;
     private ImageView imgV_movie;
     private Label lbl_IMDBscore;
     private Label lbl_specs;
@@ -51,13 +43,6 @@ public class MovieDetails extends VBox implements Updatable {
     private ImageView imgV_rottenTomatoes;
     private MediaPlayer mediaPlayer = null;
 
-
-    private Movie movie = new Movie(0, true, new int[]{0, 1},
-            new ViewingOption[]{Normal}, String.format("Movie %d", 0), MPAA.PG13,
-            91, "trailer", "TiHBshadsdasbdkasdaisaosijdaisjddiajda nullam curae arcu nostra, iaculis erat commodo consectetur class potenti posuere pretium pulvinar libero id curabitur class lacinia nostra luctus.",
-            7, 61, 90, new Genre[]{Action, Thriller}, new String[]{"7ma", "Acdtoaddar2"}, new String[]{"ads", "dasdas"}, "dadasdasdsa");
-    ;
-
     public MovieDetails(Stage window) {
         this.window = window;
 
@@ -66,14 +51,9 @@ public class MovieDetails extends VBox implements Updatable {
         // endregion Header
 
         //region Overview
+
         //region Poster
-        img_movie = new Image("file:" + Main.PATH_RESOURCES_IMG_POSTER + "1.jpg"); // todo temp
-        imgV_movie = new ImageView(img_movie);
-
-        imgV_movie.fitHeightProperty().bind(window.heightProperty().multiply(0.52));
-        imgV_movie.fitWidthProperty().bind(imgV_movie.fitHeightProperty().multiply(img_movie.getWidth() / img_movie.getHeight()));
-
-
+        imgV_movie = new ImageView();
         //endregion Poster
 
         //region VBOX Movie Description
@@ -87,6 +67,7 @@ public class MovieDetails extends VBox implements Updatable {
 
         Image img_star = new Image("file:" + FILE_IMDB);
         ImageView imgV_star = new ImageView(img_star);
+
         imgV_star.fitHeightProperty().bind(window.heightProperty().multiply(0.045));
         imgV_star.fitWidthProperty().bind(imgV_star.fitHeightProperty().multiply(img_star.getWidth() / img_star.getHeight()));
 
@@ -117,7 +98,7 @@ public class MovieDetails extends VBox implements Updatable {
         Text txt_director = new Text("Director: ");
         txt_director.getStyleClass().add("MovieDetailsInfo");
 
-        txt_directors = new Text(movie.getInfo().getDirector());
+        txt_directors = new Text();
         txt_directors.getStyleClass().add("MovieDetailsInfoItalic");
 
         txtFlow_director.getChildren().addAll(txt_director, txt_directors);
@@ -127,7 +108,7 @@ public class MovieDetails extends VBox implements Updatable {
         Text txt_writer = new Text("Writers: ");
         txt_writer.getStyleClass().add("MovieDetailsInfo");
 
-        txt_writers = new Text(movie.getWritersString());
+        txt_writers = new Text();
 
         txtFlow_writers.getChildren().addAll(txt_writer, txt_writers);
 
@@ -136,7 +117,7 @@ public class MovieDetails extends VBox implements Updatable {
         TextFlow txtFlow_actors = new TextFlow();
 
         Text txt_actor = new Text("Actors: ");
-        txt_actors = new Text(movie.getActorsString());
+        txt_actors = new Text();
 
         txtFlow_actors.getChildren().addAll(txt_actor, txt_actors);
 
@@ -152,9 +133,7 @@ public class MovieDetails extends VBox implements Updatable {
         vbx_plot.setPadding(new Insets(10, 20, 10, 20));//todo Magic Number
 
         VBox vbx_description = new VBox();
-        vbx_description.setMinHeight(300); //todo Magic Number
         vbx_description.setSpacing(2);  //todo Magic Number
-//        vbx_description.setPadding(new Insets(10, 10, 10, 10));//todo Magic Number
 
 
         vbx_description.getChildren().addAll(hbx_title, lbl_specs, vbx_plot);
@@ -177,16 +156,10 @@ public class MovieDetails extends VBox implements Updatable {
 
         //region Bottom
 
-
         //region Media Player
-//        String path = "file:///C:/Users/Sameh/Desktop/Software%20Test/ASU2019_Software1Project/src/com/company/sample.mp4";
         String path = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
-        //Stack Pane to set Padding
-
-
         FlowPane flow_mediaPlayer = new FlowPane();
-
 
         try {
             Media media = new Media(path);
@@ -203,32 +176,19 @@ public class MovieDetails extends VBox implements Updatable {
             flow_mediaPlayer.setMinHeight(350);
             flow_mediaPlayer.setMinWidth(500);
         }
-
-
         //endregion Media Player
 
         //region Vbox Scores & Purchase
 
         //region Hbox scores
-        HBox hbx_scores = new HBox();
 
         //region Metascore
 
         HBox hbx_metascore = new HBox();
 
-
-        lbl_metascore = new Label(String.valueOf(movie.getInfo().getMetascore()));
+        lbl_metascore = new Label();
         lbl_metascore.getStyleClass().add("MovieDetailsMetascore");
 
-        String style;
-        if (movie.getInfo().getMetascore() > 60) {
-            style = "-fx-background-color: #6c3;";//todo add to the css file
-        } else if (movie.getInfo().getMetascore() > 39) {
-            style = "-fx-background-color: #fc3;";//todo add to the css file
-        } else {
-            style = "-fx-background-color: #f00;";//todo add to the css file
-        }
-        lbl_metascore.setStyle(style);
 
         Image img_metascore = new Image("file:" + FILE_METACRITIC);
         ImageView imgV_metascore = new ImageView(img_metascore);
@@ -238,7 +198,7 @@ public class MovieDetails extends VBox implements Updatable {
 
         hbx_metascore.getChildren().addAll(lbl_metascore, imgV_metascore);
         hbx_metascore.setSpacing(20);
-        hbx_metascore.setAlignment(Pos.TOP_LEFT);
+        hbx_metascore.setAlignment(Pos.CENTER);
         //endregion Metascore
 
         //region Tomatometer
@@ -250,8 +210,6 @@ public class MovieDetails extends VBox implements Updatable {
         lbl_rottenTomatoes.getStyleClass().add("MovieDetailsTomatometer");
 
         img_rottenTomatoes = new Image("file:" + FILE_TOMATO_FRESH);
-
-
         imgV_rottenTomatoes = new ImageView(img_rottenTomatoes);
 
         imgV_rottenTomatoes.fitHeightProperty().bind(window.heightProperty().multiply(0.055));
@@ -260,13 +218,13 @@ public class MovieDetails extends VBox implements Updatable {
 
         hbx_rottenTomatoes.getChildren().addAll(imgV_rottenTomatoes, lbl_rottenTomatoes);
         hbx_rottenTomatoes.setSpacing(20);
-        hbx_rottenTomatoes.setPadding(new Insets(10, 0, 0, 100));
         hbx_rottenTomatoes.setAlignment(Pos.CENTER);
         //endregion Metascore
 
-
+        HBox hbx_scores = new HBox();
         hbx_scores.getChildren().addAll(hbx_metascore, hbx_rottenTomatoes);
         hbx_scores.setAlignment(Pos.CENTER);
+        hbx_scores.setSpacing(20); //todo Magic Number
 
         // Bottom Padding to make purchase button go down
         hbx_scores.setPadding(new Insets(40, 0, 30, 0)); //todo Magic Number
@@ -282,52 +240,56 @@ public class MovieDetails extends VBox implements Updatable {
             lm_mdPLayer.pause();
         });
         btn_purchase.getStyleClass().add("purchaseBtn");
-        btn_purchase.setFont(Font.font("Helvetica", 32));
-        btn_purchase.setMinSize(500, 75); //todo Magic Number
 
 
         VBox vbx_purchase = new VBox();
 
         vbx_purchase.getChildren().addAll(hbx_scores, btn_purchase);
-        vbx_purchase.setSpacing(20); //todo Magic Number
         vbx_purchase.setAlignment(Pos.TOP_CENTER);
 
         //endregion Vbox Scores & Purchase
 
-        Region rg3 = new Region();
         HBox.setHgrow(vbx_purchase, Priority.ALWAYS);
 
         HBox hbx_bot = new HBox();
 
         hbx_bot.setAlignment(Pos.CENTER);
-        hbx_bot.getChildren().addAll(flow_mediaPlayer, vbx_purchase, rg3);
-        hbx_bot.setSpacing(30);  //todo Magic Number
+        hbx_bot.getChildren().addAll(flow_mediaPlayer, vbx_purchase);
 
-        Region rgn_bot = new Region(); // To replace padding below media player
 
         //endregion Bottom
 
-        this.getChildren().addAll(header, hbx_overview, hbx_bot, rgn_bot);
+        this.getChildren().addAll(header, hbx_overview, hbx_bot);
     }
 
     public void updateScene() {
         mediaPlayer.play();
+
+
         Movie currentMovie = Main.getCurrentMovie();
 
         lbl_movieTitle.setText(currentMovie.getInfo().getName());
         lbl_IMDBscore.setText(String.valueOf(currentMovie.getInfo().getIMDBscore()));
+
         lbl_specs.setText(currentMovie.getInfo().getRating() + " | " + currentMovie.getInfo().getDuration() + " min | " + currentMovie.getGenresString());
+
         lbl_plot.setText(currentMovie.getInfo().getPlot());
-        lbl_metascore.setText(String.valueOf(currentMovie.getInfo().getMetascore()));
-        lbl_rottenTomatoes.setText(currentMovie.getInfo().getTomatometer() + "%");
         txt_directors.setText(currentMovie.getInfo().getDirector());
         txt_writers.setText(currentMovie.getWritersString());
         txt_actors.setText(currentMovie.getActorsString());
 
+        lbl_metascore.setText(String.valueOf(currentMovie.getInfo().getMetascore()));
+        String style;
+        if (currentMovie.getInfo().getMetascore() > 60) {
+            style = "-fx-background-color: #6c3;";//todo add to the css file
+        } else if (currentMovie.getInfo().getMetascore() > 39) {
+            style = "-fx-background-color: #fc3;";//todo add to the css file
+        } else {
+            style = "-fx-background-color: #f00;";//todo add to the css file
+        }
+        lbl_metascore.setStyle(style);
 
-        img_movie = new Image("file:" + Main.PATH_RESOURCES_IMG_POSTER + currentMovie.getId() + ".jpg");
-        imgV_movie.setImage(img_movie);
-
+        lbl_rottenTomatoes.setText(currentMovie.getInfo().getTomatometer() + "%");
         if (currentMovie.getInfo().getTomatometer() > 59) {   //Changes image according to Tomatometer
             img_rottenTomatoes = new Image("file:" + FILE_TOMATO_FRESH);
         } else {
@@ -335,8 +297,11 @@ public class MovieDetails extends VBox implements Updatable {
         }
         imgV_rottenTomatoes.setImage(img_rottenTomatoes);
 
+        Image img_movie = new Image("file:" + Main.PATH_RESOURCES_IMG_POSTER + currentMovie.getImdbID() + ".jpg");
+        imgV_movie.setImage(img_movie);
 
+        imgV_movie.fitHeightProperty().bind(window.heightProperty().multiply(0.52));
+        imgV_movie.fitWidthProperty().bind(imgV_movie.fitHeightProperty().multiply(img_movie.getWidth() / img_movie.getHeight()));
     }
-
 
 }

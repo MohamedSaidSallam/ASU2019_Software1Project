@@ -1,4 +1,4 @@
-package com.company.ui;
+package com.company.uiscenes;
 
 import com.company.Main;
 import com.company.cinema.Hall;
@@ -6,7 +6,7 @@ import com.company.cinema.Seat;
 import com.company.cinema.ViewingOption;
 import com.company.cinema.ticket.Order;
 import com.company.cinema.ticket.Ticket;
-import com.company.ui.sections.Header;
+import com.company.uiscenes.sections.Header;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,7 +24,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import static com.company.Main.PATH_RESOURCES_IMG_POSTER;
 

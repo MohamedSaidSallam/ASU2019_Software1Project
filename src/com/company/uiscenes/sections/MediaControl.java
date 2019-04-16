@@ -30,7 +30,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.company.ui.sections;
+package com.company.uiscenes.sections;
 
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
