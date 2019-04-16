@@ -2,6 +2,7 @@ package com.company.UI;
 
 
 import com.company.Main;
+import com.company.cinema.ViewingOption;
 import com.company.payment.CardType;
 
 
@@ -40,6 +41,7 @@ public class TicketPayment extends VBox implements Updatable {
     private Label lbl_ticketPrice;
     private Label lbl_Hall;
     private Label lbl_totalPrice;
+    private  Label g2;
 
     public TicketPayment(Stage window) {
 
@@ -123,6 +125,16 @@ public class TicketPayment extends VBox implements Updatable {
         Label label7 = new Label();
 
         lbl_totalPrice = new Label();
+        Label glass = new Label();
+        Label noofglasses = new Label();
+        Label glass1 = new Label();
+        g2 = new Label();
+        g2.setFont(new Font(25));
+        HBox hg = new HBox();
+        HBox hg2 = new HBox();
+        hg.getChildren().addAll(glass, glass1);
+        hg2.getChildren().addAll(noofglasses, g2);
+
 
         Label label9 = new Label();
 
@@ -202,7 +214,6 @@ public class TicketPayment extends VBox implements Updatable {
         label.setText("                                              Payment  ");
 
         label.setFont(new Font("Century Gothic", 64.0));
-
 
 /*
         line.setEndX(0);
@@ -378,6 +389,15 @@ public class TicketPayment extends VBox implements Updatable {
         label3.setFont(new Font(25));
 
 
+        glass.setText("  Glasses Price                  :                  20                                       L.E");
+
+        glass.setFont(new Font(25));
+
+        noofglasses.setText("  Number of glasses         :");
+
+        noofglasses.setFont(new Font(25));
+
+
         GridPane.setRowIndex(label4, 5);
 
         label4.setPrefHeight(21.0);
@@ -427,7 +447,7 @@ public class TicketPayment extends VBox implements Updatable {
 
         label11.setPrefWidth(131.0);
 
-        label11.setText("L E");
+        label11.setText("L.E");
 
         label11.setFont(new Font(24.0));
 
@@ -497,9 +517,7 @@ public class TicketPayment extends VBox implements Updatable {
 
         lbl_ticketPrice.setPrefHeight(21.0);
 
-        lbl_ticketPrice.setPrefWidth(235.0);
 
-        lbl_ticketPrice.setText("30");
         lbl_ticketPrice.setFont(new Font(25));
 
 
@@ -542,7 +560,7 @@ public class TicketPayment extends VBox implements Updatable {
         vBox1.setPrefWidth(1000);
 
 
-        gridPane0.setPrefHeight(primaryScreenBounds.getHeight() * 0.25);
+        gridPane0.setPrefHeight(primaryScreenBounds.getHeight() * 0.2);
         gridPane0.setPadding(new Insets(50, 0, 0, 0));
 
 
@@ -732,6 +750,9 @@ public class TicketPayment extends VBox implements Updatable {
 
         vBox1.getChildren().add(gridPane);
 
+        vBox1.getChildren().add(hg);
+        vBox1.getChildren().add(hg2);
+
         vBox1.getChildren().add(line2);
 
         vBox1.getChildren().add(gridPane1);
@@ -815,18 +836,49 @@ public class TicketPayment extends VBox implements Updatable {
 
             }
         });
+        lbl_ticketPrice.setPrefWidth(235.0);
+
 
     }
 
+    int y=0;
+
     public void updateScene() {
-        int x=30 * (Main.getCurrentOrder().getTickets().size());
+
+        switch (SeatSelection.glass) {
+            case IMAX:
+                lbl_ticketPrice.setText(String.valueOf(ViewingOption.IMAX.getPrice()));
+                y=ViewingOption.IMAX.getPrice();
+            case Normal:
+                lbl_ticketPrice.setText(String.valueOf(ViewingOption.Normal.getPrice()));
+                y=ViewingOption.Normal.getPrice();
+
+            case Dolby:
+                lbl_ticketPrice.setText(String.valueOf(ViewingOption.Dolby.getPrice()));
+                y=ViewingOption.Dolby.getPrice();
+
+            case VIP:
+                lbl_ticketPrice.setText(String.valueOf(ViewingOption.VIP.getPrice()));
+                y=ViewingOption.VIP.getPrice();
+
+
+        }
+        int x=((y * (Main.getCurrentOrder().getTickets().size()))+(Integer.parseInt(SeatSelection.lbl_noGlassesValue.getText())*20));
+
+
         lbl_movieTitle.setText(Main.getCurrentOrder().getTickets().get(0).getMovie().getInfo().getName());
         lbl_NoTickets.setText("" + Main.getCurrentOrder().getTickets().size());
         lbl_viewingOptions.setText(Main.getCurrentOrder().getTickets().get(0).getViewingOption() + "");
         lbl_Hall.setText(Main.getCurrentOrder().getTickets().get(0).getHallIndex() + "");
 
+        g2.setText("                  "+SeatSelection.lbl_noGlassesValue.getText());
+
+
+
 
         lbl_totalPrice.setText(x+"");
+
+
 
 
 

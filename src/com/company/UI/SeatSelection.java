@@ -43,13 +43,14 @@ public class SeatSelection extends BorderPane implements Updatable {
     // region Variables
     private Stage window;
     private int numSeatsSelected = 0;
-    private Label lbl_noGlassesValue;
+    static Label lbl_noGlassesValue;
 
+    static ViewingOption glass;
     private HBox hbx_top;
     private Image img_moviePoster;
     private ImageView imgV_moviePoster;
     private Label lbl_movieTitle;
-    ComboBox<ViewingOption> cbo_viewingOptions;
+    static ComboBox<ViewingOption> cbo_viewingOptions;
 
 
 
@@ -144,21 +145,28 @@ public class SeatSelection extends BorderPane implements Updatable {
         Button btn_removeGlasses = Main.createButton("-", 0.01f, 0.05f);
         btn_removeGlasses.setOnAction(e -> lbl_noGlassesValue.setText(String.valueOf(Math.max(Integer.parseInt(lbl_noGlassesValue.getText()) - 1, 0))));
         btn_removeGlasses.getStyleClass().add("NoFocus");
-
         hbx_noGlasses.setAlignment(Pos.TOP_CENTER);
         hbx_noGlasses.setSpacing(10);
 
         hbx_noGlasses.getChildren().addAll(btn_addGlasses, btn_removeGlasses, lbl_noGlassesValue);
         hbx_noGlasses.setVisible(false);
+        cbo_viewingOptions.getItems().setAll(ViewingOption.values());
 
         cbo_viewingOptions.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
             if (newValue == ViewingOption.IMAX) {
                 lbl_noGlasses.setVisible(true);
                 hbx_noGlasses.setVisible(true);
+                glass=newValue;
+
+
             } else {
                 lbl_noGlasses.setVisible(false);
                 hbx_noGlasses.setVisible(false);
+                glass=newValue;
+
+
             }
+
         });
         // endregion noGlasses
 
@@ -296,6 +304,7 @@ public class SeatSelection extends BorderPane implements Updatable {
         cbo_viewingOptions.prefHeightProperty().bind(window.heightProperty().multiply(0.04));
 
         cbo_viewingOptions.getStyleClass().add("NoFocus");
+
     }
 }
 
