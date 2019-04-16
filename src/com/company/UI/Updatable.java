@@ -1,4 +1,4 @@
-package com.company.UI;
+package com.company.ui;
 
 public interface Updatable {
     void updateScene();
