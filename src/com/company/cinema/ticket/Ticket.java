@@ -2,6 +2,7 @@ package com.company.cinema.ticket;
 
 import com.company.cinema.Movie;
 import com.company.cinema.Seat;
+import com.company.cinema.ViewingOption;
 import com.company.prototyping.HardwareProto;
 
 import java.util.Date;
@@ -13,17 +14,19 @@ public class Ticket {
     private Date date;
     private Movie movie;
     private Seat seat;
+    private ViewingOption viewingOption;
     private int sessionIndex;
     private int hallIndex;
     // endregion Variables
 
     // region Constructor
 
-    public Ticket(int id, Date date, Movie movie, Seat seat, int sessionIndex, int hallIndex) {
+    public Ticket(int id, Movie movie, Seat seat, ViewingOption viewingOption, int sessionIndex, int hallIndex) {
         this.id = id;
-        this.date = date;
+        this.date = new Date();
         this.movie = movie;
         this.seat = seat;
+        this.viewingOption = viewingOption;
         this.sessionIndex = sessionIndex;
         this.hallIndex = hallIndex;
     }
@@ -46,6 +49,10 @@ public class Ticket {
 
     public Seat getSeat() {
         return seat;//todo clone ?
+    }
+
+    public ViewingOption getViewingOption() {
+        return viewingOption;
     }
 
     public int getSessionIndex() {
@@ -74,6 +81,10 @@ public class Ticket {
 
     public void setSeat(Seat seat) {
         this.seat = seat;
+    }
+
+    public void setViewingOption(ViewingOption viewingOption) {
+        this.viewingOption = viewingOption;
     }
 
     public void setSessionIndex(int sessionIndex) {

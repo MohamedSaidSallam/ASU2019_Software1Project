@@ -4,6 +4,8 @@ import com.company.Main;
 import com.company.cinema.Hall;
 import com.company.cinema.Seat;
 import com.company.cinema.ViewingOption;
+import com.company.cinema.ticket.Order;
+import com.company.cinema.ticket.Ticket;
 import com.company.ui.sections.Header;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -21,7 +23,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class SelectionScene extends BorderPane implements Updatable {
+import java.util.ArrayList;
+import java.util.Date;
+
+import static com.company.Main.PATH_RESOURCES_IMG_POSTER;
+
+
+public class SeatSelection extends BorderPane implements Updatable {
+
 
     // region Constants
     // region Colors
@@ -36,11 +45,16 @@ public class SelectionScene extends BorderPane implements Updatable {
     private Stage window;
     private int numSeatsSelected = 0;
     private Label lbl_noGlassesValue;
-//    private HBox hbx_top;
-    // endregion Variables
+
+    private HBox hbx_top;
+    private Image img_moviePoster;
+    private ImageView imgV_moviePoster;
+    private Label lbl_movieTitle;
+    ComboBox<ViewingOption> cbo_viewingOptions;
 
 
-    public SelectionScene(Stage primaryStage) {
+
+    public SeatSelection(Stage primaryStage) {
         window = primaryStage;
 
         // region TESTING
@@ -78,12 +92,15 @@ public class SelectionScene extends BorderPane implements Updatable {
         // endregion Header
 
         // region MoviePanel
-        Image img_moviePoster = new Image("file:"+ Main.PATH_RESOURCES_IMG_POSTER +"1.jpg"); // todo temp
-        ImageView imgV_moviePoster = new ImageView(img_moviePoster);
-        imgV_moviePoster.fitHeightProperty().bind(window.heightProperty().multiply(0.63));
+
+        img_moviePoster = new Image("file:" + Main.PATH_RESOURCES_IMG_POSTER + "1.jpg");
+        imgV_moviePoster = new ImageView(img_moviePoster);
+
+
+        imgV_moviePoster.fitHeightProperty().bind(window.heightProperty().multiply(0.43));
         imgV_moviePoster.fitWidthProperty().bind(imgV_moviePoster.fitHeightProperty().multiply(img_moviePoster.getWidth() / img_moviePoster.getHeight()));
 
-        Label lbl_movieTitle = new Label("Interstellar this is a very long title made for just testing purposes nothing else");
+        lbl_movieTitle = new Label();
         lbl_movieTitle.getStyleClass().add("MovieTitleBig");
 
         lbl_movieTitle.prefWidthProperty().bind(imgV_moviePoster.fitWidthProperty());
@@ -107,15 +124,9 @@ public class SelectionScene extends BorderPane implements Updatable {
         // region viewingOptions
         Label lbl_viewingOptions = createOptionLabel("Movie type:");
 
-        ComboBox<ViewingOption> cbo_viewingOptions = new ComboBox<>();
+        cbo_viewingOptions = new ComboBox<>();
 
-        cbo_viewingOptions.getItems().addAll(ViewingOption.values());
-        cbo_viewingOptions.getSelectionModel().selectFirst();
 
-        cbo_viewingOptions.prefWidthProperty().bind(window.widthProperty().multiply(0.13));
-        cbo_viewingOptions.prefHeightProperty().bind(window.heightProperty().multiply(0.04));
-
-        cbo_viewingOptions.getStyleClass().add("NoFocus");
         // endregion viewingOptions
 
         // region noGlasses
@@ -164,6 +175,7 @@ public class SelectionScene extends BorderPane implements Updatable {
 
         // region SeatSelection
 
+        ArrayList<Seat> selectedSeats = new ArrayList<>();
         GridPane grd_seats = new GridPane();
 
         for (int j = 0; j < 10; j++) {
@@ -179,6 +191,7 @@ public class SelectionScene extends BorderPane implements Updatable {
 
                 if (!seats[counter].isAvailable()) {
                     rectangle.setFill(SEAT_UNAVAILABLE_COLOR);
+
                 } else {
                     rectangle.setFill(SEAT_NOT_SELECTED_COLOR);
 
@@ -188,7 +201,9 @@ public class SelectionScene extends BorderPane implements Updatable {
                             numSeatsSelected--;
                         } else {
                             rectangle.setFill(SEAT_SELECTED_COLOR);
+
                             choice[counter].setAvailable(false);
+                            selectedSeats.add(new Seat(choice[counter].getColumn(), choice[counter].getRow(), true)); //todo Check Server Availability
                             numSeatsSelected++;
                         }
                         setNumber(lbl_noSeat);
@@ -197,7 +212,9 @@ public class SelectionScene extends BorderPane implements Updatable {
 
                 GridPane.setConstraints(rectangle, i, j);
 
+
                 Label lbl_seatPos = new Label(seats[counter].getRow() + seats[counter].getColumn());
+
                 GridPane.setConstraints(lbl_seatPos, i, j);
                 GridPane.setHalignment(lbl_seatPos, HPos.CENTER);
 
@@ -227,8 +244,14 @@ public class SelectionScene extends BorderPane implements Updatable {
         hbx_btm.getStyleClass().add("gray");
 
         btn_btm.setOnAction(e -> {
+            ArrayList<Ticket> tickets = new ArrayList<>();
+            for (int i = 0; i < numSeatsSelected; i++) {
+                tickets.add(new Ticket(i, Main.getCurrentMovie(), selectedSeats.get(i), cbo_viewingOptions.getSelectionModel().getSelectedItem(), 1, 2));
+            }
+            Order order = new Order(tickets);
+            Main.setCurrentOrder(order);
+            Main.switchScene(3);
 
-            System.out.println("**********");
         });//todo remove this later
         // endregion Footer
 
@@ -257,8 +280,23 @@ public class SelectionScene extends BorderPane implements Updatable {
         return label;
     }
 
+
+
     public void updateScene() {
-        //todo implement
-        throw new UnsupportedOperationException();
+        img_moviePoster = new Image("file:" + PATH_RESOURCES_IMG_POSTER + Main.getCurrentMovie().getId() + ".jpg");
+        imgV_moviePoster.setImage(img_moviePoster);
+
+        lbl_movieTitle.setText(Main.getCurrentMovie().getInfo().getName());
+
+
+        cbo_viewingOptions.getItems().addAll(Main.getCurrentMovie().getViewingOptions());
+        cbo_viewingOptions.getSelectionModel().selectFirst();
+
+        cbo_viewingOptions.prefWidthProperty().bind(window.widthProperty().multiply(0.13));
+        cbo_viewingOptions.prefHeightProperty().bind(window.heightProperty().multiply(0.04));
+
+        cbo_viewingOptions.getStyleClass().add("NoFocus");
     }
 }
+
+

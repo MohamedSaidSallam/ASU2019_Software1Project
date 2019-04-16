@@ -10,8 +10,12 @@ import com.company.prototyping.APIData;
 import com.company.prototyping.APIProto;
 import com.company.ui.BrowseMovies;
 import com.company.ui.MovieDetails;
-import com.company.ui.SelectionScene;
 import com.company.ui.Updatable;
+
+import com.company.cinema.ticket.Order;
+import com.company.ui.*;
+
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -58,6 +62,11 @@ public class Main extends Application {
     }
     // endregion mutators
 
+
+    private static Order currentOrder;
+
+
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -77,8 +86,10 @@ public class Main extends Application {
 
         panes[0] = new BrowseMovies(primaryStage, movies);
         panes[1] = new MovieDetails(primaryStage);
-        panes[2] = new SelectionScene(primaryStage);
-//        panes[3] = new MovieDetails(primaryStage);
+        panes[2] = new SeatSelection(primaryStage);
+        panes[3] = new TicketPayment(primaryStage);
+
+
 
 
         scene = new Scene(panes[0]);
@@ -152,6 +163,14 @@ public class Main extends Application {
                 apiData.getViewingOptions(),
                 info
         ));
+    }
+
+    public static Order getCurrentOrder() {
+        return currentOrder;
+    }
+
+    public static void setCurrentOrder(Order currentOrder) {
+        Main.currentOrder = currentOrder;
     }
 
     // region Common UI

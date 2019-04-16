@@ -21,9 +21,7 @@ import javafx.stage.Stage;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import static com.company.cinema.Genre.*;
 import static com.company.cinema.ViewingOption.Normal;
 
 public class MovieDetails extends VBox implements Updatable {
@@ -53,34 +51,15 @@ public class MovieDetails extends VBox implements Updatable {
     private ImageView imgV_rottenTomatoes;
     private MediaPlayer mediaPlayer = null;
 
-    private Movie.Info movieInfo;
-    private Movie movie;
+
+    private Movie movie = new Movie(0, true, new int[]{0, 1},
+            new ViewingOption[]{Normal}, String.format("Movie %d", 0), MPAA.PG13,
+            91, "trailer", "TiHBshadsdasbdkasdaisaosijdaisjddiajda nullam curae arcu nostra, iaculis erat commodo consectetur class potenti posuere pretium pulvinar libero id curabitur class lacinia nostra luctus.",
+            7, 61, 90, new Genre[]{Action, Thriller}, new String[]{"7ma", "Acdtoaddar2"}, new String[]{"ads", "dasdas"}, "dadasdasdsa");
+    ;
 
     public MovieDetails(Stage window) {
         this.window = window;
-
-        List<Genre> genres = new ArrayList<>();
-        genres.add(Genre.Action);
-        genres.add(Genre.Thriller);
-
-        movieInfo = new Movie.Info(
-                String.format("Movie %d", 0),
-                MPAA.PG13,
-                91,
-                "trailer", "TiHBshadsdasbdkasdaisaosijdaisjddiajda nullam curae arcu nostra, iaculis erat commodo consectetur class potenti posuere pretium pulvinar libero id curabitur class lacinia nostra luctus.",
-                7,
-                61,
-                90,
-                genres,
-                new String[]{"7ma", "Acdtoaddar2"},
-                new String[]{"ads", "dasdas"},
-                "dadasdasdsa"
-        );
-        movie = new Movie("0",
-                true,
-                new int[]{0, 1},
-                new ViewingOption[]{Normal},
-                movieInfo);
 
         // region Header
         Header header = new Header(window);
@@ -206,10 +185,7 @@ public class MovieDetails extends VBox implements Updatable {
         //Stack Pane to set Padding
 
 
-
-
         FlowPane flow_mediaPlayer = new FlowPane();
-
 
 
         try {
@@ -349,7 +325,7 @@ public class MovieDetails extends VBox implements Updatable {
         txt_actors.setText(currentMovie.getActorsString());
 
 
-        img_movie = new Image("file:" + Main.PATH_RESOURCES_IMG_POSTER + currentMovie.getImdbID() + ".jpg");
+        img_movie = new Image("file:" + Main.PATH_RESOURCES_IMG_POSTER + currentMovie.getId() + ".jpg");
         imgV_movie.setImage(img_movie);
 
         if (currentMovie.getInfo().getTomatometer() > 59) {   //Changes image according to Tomatometer
