@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../_Resources/Java Lib/java-dotenv/annotations-13.0.jar!/" />
+          <root url="jar://$USER_HOME$/_Resources/Java Lib/java-dotenv/annotations-13.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../_Resources/Java Lib/java-dotenv/java-dotenv-5.0.1.jar!/" />
+          <root url="jar://$USER_HOME$/_Resources/Java Lib/java-dotenv/java-dotenv-5.0.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -28,7 +28,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../_Resources/Java Lib/java-dotenv/kotlin-stdlib-1.3.21.jar!/" />
+          <root url="jar://$USER_HOME$/_Resources/Java Lib/java-dotenv/kotlin-stdlib-1.3.21.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -37,7 +37,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../_Resources/Java Lib/gson-2.8.5.jar!/" />
+          <root url="jar://$USER_HOME$/_Resources/Java Lib/gson-2.8.5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -46,15 +46,18 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$PATH_TO_FX$" />
+          <root url="file://$MODULE_DIR$" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$PATH_TO_FX$" />
+          <root url="file://$MODULE_DIR$" />
         </SOURCES>
-        <jarDirectory url="file://$PATH_TO_FX$" recursive="false" />
-        <jarDirectory url="file://$PATH_TO_FX$" recursive="false" type="SOURCES" />
+        <jarDirectory url="file://$MODULE_DIR$" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="google-api-client-1.24.1" level="project" />
+    <orderEntry type="library" name="google-http-client-gson-1.24.1" level="project" />
+    <orderEntry type="library" name="gson-2.11" level="project" />
   </component>
 </module>

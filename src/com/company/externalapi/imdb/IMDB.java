@@ -1,7 +1,9 @@
 package com.company.externalapi.imdb;
 
 import com.company.externalapi.imdb.response.IMDBResponse;
+/*
 import io.github.cdimascio.dotenv.Dotenv;
+*/
 
 import java.io.InputStream;
 import java.net.URL;
@@ -28,13 +30,15 @@ public class IMDB {
     }
     // endregion Constructor
 
-    public static void init(){
+  /*  public static void init(){
+*//*
         Dotenv dotenv = Dotenv.load();
+*//*
 
         apiFormat = "apikey=" + dotenv.get("omdbapi_APIKey") + "&i=";
 
         initialized = true;
-    }
+    }*/
 
     private static String getMovieDetailsString(String movieID) {
         if(initialized) {
@@ -71,7 +75,9 @@ public class IMDB {
 
     public static void main(String[] args) {
         //for Testing purposes
+/*
         init();
+*/
         System.out.println(getMovieDetails("tt3896198").getTitle());
     }
 }

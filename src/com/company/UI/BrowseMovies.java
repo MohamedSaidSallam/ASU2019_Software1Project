@@ -1,11 +1,11 @@
-package com.company.ui;
+package com.company.UI;
 
 import com.company.Main;
 import com.company.cinema.Genre;
 import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
 import com.company.cinema.ViewingOption;
-import com.company.ui.sections.Header;
+import com.company.UI.sections.Header;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,8 +14,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -79,6 +77,8 @@ public class BrowseMovies extends VBox implements Updatable {
 
         this.getChildren().addAll(header, sp_movies);
     }
+
+
 
 
     private VBox createMovieVBox(Movie movie) {

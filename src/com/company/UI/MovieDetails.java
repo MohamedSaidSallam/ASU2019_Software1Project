@@ -1,12 +1,12 @@
-package com.company.ui;
+package com.company.UI;
 
 import com.company.Main;
 import com.company.cinema.Genre;
 import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
 import com.company.cinema.ViewingOption;
-import com.company.ui.sections.Header;
-import com.company.ui.sections.MediaControl;
+import com.company.UI.sections.Header;
+import com.company.UI.sections.MediaControl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -185,7 +185,10 @@ public class MovieDetails extends VBox implements Updatable {
         //Stack Pane to set Padding
 
 
+
+
         FlowPane flow_mediaPlayer = new FlowPane();
+
 
 
         try {
