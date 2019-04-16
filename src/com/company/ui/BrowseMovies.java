@@ -34,7 +34,7 @@ public class BrowseMovies extends VBox implements Updatable {
 
         hbx_movies.setSpacing(10);//todo magic numbers
 
-        for (Movie movie: movies) {
+        for (Movie movie : movies) {
             hbx_movies.getChildren().add(createMovieVBox(movie));
         }
         // endregion Content
@@ -100,7 +100,5 @@ public class BrowseMovies extends VBox implements Updatable {
     }
 
     public void updateScene() {
-        //todo implement
-        throw new UnsupportedOperationException();
     }
 }

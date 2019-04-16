@@ -53,7 +53,6 @@ public class SeatSelection extends BorderPane implements Updatable {
     ComboBox<ViewingOption> cbo_viewingOptions;
 
 
-
     public SeatSelection(Stage primaryStage) {
         window = primaryStage;
 
@@ -281,9 +280,8 @@ public class SeatSelection extends BorderPane implements Updatable {
     }
 
 
-
     public void updateScene() {
-        img_moviePoster = new Image("file:" + PATH_RESOURCES_IMG_POSTER + Main.getCurrentMovie().getId() + ".jpg");
+        img_moviePoster = new Image("file:" + PATH_RESOURCES_IMG_POSTER + Main.getCurrentMovie().getImdbID() + ".jpg");
         imgV_moviePoster.setImage(img_moviePoster);
 
         lbl_movieTitle.setText(Main.getCurrentMovie().getInfo().getName());

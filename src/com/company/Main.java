@@ -3,22 +3,18 @@ package com.company;
 import com.company.cinema.Genre;
 import com.company.cinema.MPAA;
 import com.company.cinema.Movie;
+import com.company.cinema.ticket.Order;
 import com.company.externalapi.imdb.IMDB;
 import com.company.externalapi.imdb.response.IMDBResponse;
 import com.company.json.JsonParser;
 import com.company.prototyping.APIData;
 import com.company.prototyping.APIProto;
-import com.company.ui.BrowseMovies;
-import com.company.ui.MovieDetails;
-import com.company.ui.Updatable;
-
-import com.company.cinema.ticket.Order;
 import com.company.ui.*;
-
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -36,9 +32,11 @@ public class Main extends Application {
     public static final String PATH_RESOURCES_IMG_POSTER = PATH_RESOURCES_IMG + "poster/";
     public static final String PATH_RESOURCES_IMG_RATINGS = PATH_RESOURCES_IMG + "ratings/";
 
-    private static final String FILE_STYLES = PATH_RESOURCES + "styles.css";
     private static final String PATH_RESOURCES_JSON = PATH_RESOURCES + "json/";
     private static final String PATH_RESOURCES_JSON_MOVIES = PATH_RESOURCES_JSON + "movies/";
+
+    private static final String FILE_STYLES = PATH_RESOURCES + "styles.css";
+    private static final String FILE_ICON = PATH_RESOURCES_IMG + "CTD_Logo.png";
     // endregion Files
     // endregion Constants
 
@@ -48,11 +46,16 @@ public class Main extends Application {
     private static Pane[] panes = new Pane[4];
 
     private static Movie currentMovie;
+    private static Order currentOrder;
     // endregion Variables
 
     // region accessors
     public static Movie getCurrentMovie() {
         return currentMovie;
+    }
+
+    public static Order getCurrentOrder() {
+        return currentOrder;
     }
     // endregion accessors
 
@@ -60,20 +63,14 @@ public class Main extends Application {
     public static void setCurrentMovie(Movie currentMovie) {
         Main.currentMovie = currentMovie;
     }
+
+    public static void setCurrentOrder(Order currentOrder) {
+        Main.currentOrder = currentOrder;
+    }
     // endregion mutators
-
-
-    private static Order currentOrder;
-
-
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    public static void switchScene(int index) {
-        ((Updatable) panes[index]).updateScene();
-        scene.setRoot(panes[index]);
     }
 
     @Override
@@ -89,16 +86,19 @@ public class Main extends Application {
         panes[2] = new SeatSelection(primaryStage);
         panes[3] = new TicketPayment(primaryStage);
 
-
-
-
         scene = new Scene(panes[0]);
         scene.getStylesheets().add("file:" + FILE_STYLES);
 
+        window.getIcons().add(new Image("file:" + FILE_ICON));
         window.setFullScreen(true);
         window.setTitle("CTD");
         window.setScene(scene);
         window.show();
+    }
+
+    public static void switchScene(int index) {
+        ((Updatable) panes[index]).updateScene();
+        scene.setRoot(panes[index]);
     }
 
     private List<Movie> getMoviesList() {
@@ -106,9 +106,13 @@ public class Main extends Application {
         List<Movie> movies = new ArrayList<>();
         List<String> localDataIDs = new ArrayList<>();
 
-        for (File file : new File(PATH_RESOURCES_JSON_MOVIES).listFiles()) {
-            if (!file.isDirectory()) {
-                localDataIDs.add(file.getName().substring(0, file.getName().length()-5));
+        File[] jsonFolder = new File(PATH_RESOURCES_JSON_MOVIES).listFiles();
+
+        if (jsonFolder != null) {
+            for (File file : jsonFolder) {
+                if (!file.isDirectory()) {
+                    localDataIDs.add(file.getName().substring(0, file.getName().length() - 5));
+                }
             }
         }
 
@@ -124,7 +128,7 @@ public class Main extends Application {
                 JsonParser.writeMovie(imdbResponse);
             }
 
-            getMovieFromIMDBResponse(movies, apiData, imdbResponse);
+            movies.add(getMovieFromIMDBResponse(apiData, imdbResponse));
         }
 
         for (String name : localDataIDs) {
@@ -134,11 +138,12 @@ public class Main extends Application {
         return movies;
     }
 
-    private void getMovieFromIMDBResponse(List<Movie> movies, APIData apiData, IMDBResponse imdbResponse) {
+    private Movie getMovieFromIMDBResponse(APIData apiData, IMDBResponse imdbResponse) {
+        //todo move to IMDB class ?
         List<Genre> genres = new ArrayList<>();
 
         for (String genre : imdbResponse.getGenre().split(", ")) {
-            genres.add(Genre.valueOf(genre.replaceAll("-| ", "_")));
+            genres.add(Genre.valueOf(genre.replaceAll("[- ]", "_")));
         }
 
         Movie.Info info = new Movie.Info(
@@ -156,21 +161,13 @@ public class Main extends Application {
                 imdbResponse.getDirector()
         );
 
-        movies.add(new Movie(
+        return new Movie(
                 imdbResponse.getImdbID(),
                 apiData.isAvailable(),
                 new int[]{0}, //todo temp
                 apiData.getViewingOptions(),
                 info
-        ));
-    }
-
-    public static Order getCurrentOrder() {
-        return currentOrder;
-    }
-
-    public static void setCurrentOrder(Order currentOrder) {
-        Main.currentOrder = currentOrder;
+        );
     }
 
     // region Common UI
