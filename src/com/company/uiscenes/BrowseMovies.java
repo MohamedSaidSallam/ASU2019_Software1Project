@@ -62,9 +62,6 @@ public class BrowseMovies extends VBox implements Updatable {
         this.getChildren().addAll(header, sp_movies);
     }
 
-
-
-
     private VBox createMovieVBox(Movie movie) {
         Label lbl_movieTitle = new Label(movie.getInfo().getName());
         lbl_movieTitle.getStyleClass().add("MovieTitle");
@@ -82,13 +79,19 @@ public class BrowseMovies extends VBox implements Updatable {
         hbx_caption.getChildren().add(lbl_caption);
 
         Button btn_buy = new Button("Buy ticket");
-        btn_buy.setOnAction(e -> {
-            Main.setCurrentMovie(movie);
-            Main.switchScene(1);
-        });
+
         btn_buy.getStyleClass().add("btn");
         btn_buy.prefWidthProperty().bind(imageView.fitWidthProperty());
         btn_buy.prefHeightProperty().bind(window.heightProperty().multiply(0.05));
+
+        if(movie.isAvailable()){
+            btn_buy.setOnAction(e -> {
+                Main.setCurrentMovie(movie);
+                Main.switchScene(1);
+            });
+        }else{
+            btn_buy.setDisable(true);
+        }
 
         VBox vbx = new VBox();
         vbx.setPadding(new Insets(10, 50, 50, 50));//todo magic numbers

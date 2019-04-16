@@ -32,6 +32,9 @@ public class Header extends HBox {
         Button btn_temp1 = Main.createButton("temp1", 0.1f, 0.05f);
 
         Button btn_temp2 = Main.createButton("temp2", 0.1f, 0.05f);
+        btn_temp2.setOnAction((e) -> {
+            Main.switchScene(0);
+        });
 
         Region region = new Region();
         HBox.setHgrow(region, Priority.ALWAYS);

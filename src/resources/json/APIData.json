@@ -42,7 +42,7 @@
     {
         "imdbID": "tt0482571",
         "Trailer": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-        "available": true,
+        "available": false,
         "availableSessionsIndices": "",
         "viewingOptions": [
             "Normal",

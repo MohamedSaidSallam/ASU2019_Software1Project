@@ -94,7 +94,7 @@
     -fx-font-family: "Amble CN";
     -fx-font-size: 60px;
     -fx-font-weight: bold;
-    -fx-text-fill: rgb(197, 207, 236);
+    -fx-text-fill: #EAB25D;
     -fx-padding: 0px 0px 0px 30px;
 }
 
@@ -108,7 +108,7 @@
 
 .MovieDetailsPlot {
     -fx-font-family: "Amble CN";
-    -fx-font-size: 3.5em;
+    -fx-font-size: 2.5em;
     -fx-font-weight: normal;
     -fx-text-fill: #000000;
     -fx-max-width: 1300px;
@@ -200,7 +200,7 @@
 /* SelectionScene */
 .MovieTitleBig {
     -fx-font-family: "Amble CN";
-    -fx-font-size: 35px;
+    -fx-font-size: 2em;
     -fx-font-weight: bold;
     -fx-text-fill: #EAB25D;
 }
