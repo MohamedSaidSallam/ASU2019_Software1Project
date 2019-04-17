@@ -849,17 +849,21 @@ public class TicketPayment extends VBox implements Updatable {
             case IMAX:
                 lbl_ticketPrice.setText(String.valueOf(ViewingOption.IMAX.getPrice()));
                 y=ViewingOption.IMAX.getPrice();
+                break;
+
             case Normal:
                 lbl_ticketPrice.setText(String.valueOf(ViewingOption.Normal.getPrice()));
                 y=ViewingOption.Normal.getPrice();
+                break;
 
             case Dolby:
                 lbl_ticketPrice.setText(String.valueOf(ViewingOption.Dolby.getPrice()));
                 y=ViewingOption.Dolby.getPrice();
-
+                break;
             case VIP:
                 lbl_ticketPrice.setText(String.valueOf(ViewingOption.VIP.getPrice()));
                 y=ViewingOption.VIP.getPrice();
+                break;
 
 
         }
